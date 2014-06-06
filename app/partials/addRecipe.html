@@ -1,0 +1,64 @@
+<div class="row">
+	<h2>Add Recipe</h2>
+</div>
+
+<div class="row">
+	<div class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="name" class="col-sm-3 control-label">Recipe Name:</label>
+			<div class="col-sm-9">
+				<input id="name" type="text" class="form-control" placeholder="Recipe Name" ng-model="name">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="ingrText" class="col-sm-3 control-label">Ingredients:</label>
+			<div class="col-sm-9">
+				<div class="input-group col-sm-12">
+					<form>
+						<div class="input-group">
+							<input id="ingrText" type="text" class="form-control" placeholder="Ingredient..." ng-model="ingrText">
+							<span class="input-group-btn">
+								<button type="submit" ng-click="addIngredient()" class="btn btn-primary">Add</button>
+							</span>
+						</div>
+					</form>
+				</div>
+				<ul class="list-group">
+					<li class="list-group-item clearfix" ng-repeat="ingr in ingredients">
+						<span>{{ingr.text}}</span>
+						<button class="btn btn-xs btn-danger pull-right" ng-click="removeIngr($index)">x</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="directionText" class="col-sm-3 control-label">Directions:</label>
+			<div class="col-sm-9">
+				<div class="input-group col-sm-12">
+					<form>
+						<div class="input-group">
+							<input id="directionText" type="text" class="form-control" placeholder="Direction..." ng-model="directionText">
+							<span class="input-group-btn">
+								<button type="submit" ng-click="addDirection()" class="btn btn-primary">Add</button>
+							</span>
+						</div>
+					</form>
+				</div>
+				<ul class="list-group">
+					<li class="list-group-item clearfix" ng-repeat="dir in directions">
+						<span>{{dir.text}}</span>
+						<button class="btn btn-xs btn-danger pull-right" ng-click="removeDirection($index)">x</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<button class="btn btn-primary" type="submit" ng-click="saveRecipe()">Save Recipe</button>
+	</div>
+</div>
+
+<!-- <div class="row">
+	<ul class="list-group" id="messages" ng-show="messages">
+		<li class="list-group-item" ng-repeat="message in messages | orderByPriority | reverse">{{message.text}}</li>
+	</ul>
+</div>
+ -->
