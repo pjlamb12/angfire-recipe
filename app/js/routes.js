@@ -6,11 +6,13 @@ angular.module('myApp.routes', ['ngRoute'])
    // which should only be available while logged in
    .config(['$routeProvider', function($routeProvider) {
       $routeProvider.when('/home', {
+         authRequired: true, // must authenticate before viewing this page
          templateUrl: 'partials/home.html',
          controller: 'HomeCtrl'
       });
 
       $routeProvider.when('/addRecipe', {
+         authRequired: true, // must authenticate before viewing this page
          templateUrl: 'partials/addRecipe.html',
          controller: 'AddRecipeCtrl'
       });

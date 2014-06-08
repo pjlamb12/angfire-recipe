@@ -7,57 +7,53 @@ angular.module('myApp.controllers', ['firebase'])
 	  syncData('syncedValue').$bind($scope, 'syncedValue');
    }])
 
-  .controller('AddRecipeCtrl', ['$scope', 'syncData', '$firebase', function($scope, syncData, $firebase){
-	  $scope.newRecipe = {name: "", ingredients: [], directions: []};
-	  $scope.ingredients = [];
-	  $scope.ingrText = "";
-	  $scope.directionText = "";
-	  $scope.directions = [];
-	  $scope.name = "";
+.controller('AddRecipeCtrl', ['$scope', 'syncData', '$firebase', '$firebaseSimpleLogin', 'FBURL', function($scope, syncData, $firebase, $firebaseSimpleLogin, FBURL){
+	$scope.newRecipe = {userId: null, name: "", ingredients: [], directions: []};
+	$scope.ingredients = [];
+	$scope.ingrText = "";
+	$scope.directionText = "";
+	$scope.directions = [];
+	$scope.name = "";
+	$scope.curUser = $scope.auth.user;
 
-	  // constrain number of recipes by limit into syncData
-	  // add the array into $scope.recipes
-	  $scope.recipes = syncData('recipes', 10);
+	// constrain number of recipes by limit into syncData
+	// add the array into $scope.recipes
+	$scope.recipes = syncData('recipes', 10);
 
-	  $scope.addIngredient = function(){
-		 if( $scope.ingrText !== ""){
+	$scope.addIngredient = function(){
+		if( $scope.ingrText !== ""){
 			$scope.ingredients.push({text: $scope.ingrText});
 			$scope.ingrText = "";
-		 }
-	  }
+		}
+	}
 
-	  $scope.addDirection = function(){
-		 if( $scope.directionText !== ""){
+	$scope.addDirection = function(){
+		if( $scope.directionText !== ""){
 			$scope.directions.push({text: $scope.directionText});
 			$scope.directionText = "";
-		 }
-	  }
+		}
+	}
 
-	  $scope.removeIngr = function($index){
-		 $scope.ingredients.splice($index, 1);
-	  }
+	$scope.removeIngr = function($index){
+		$scope.ingredients.splice($index, 1);
+	}
 
-	  $scope.removeDirection = function($index){
-		 $scope.directions.splice($index, 1);
-	  }
+	$scope.removeDirection = function($index){
+		$scope.directions.splice($index, 1);
+	}
 
-	  // add new messages to the list
-	  $scope.saveRecipe = function() {
-		 if( $scope.name !== "" && ($scope.ingredients.length > 0 || $scope.directions.length > 0) ) {
-			// var newMessage = $scope.newMessage;
-			// var userRef = new Firebase("https://glowing-fire-3011.firebaseio.com/");
-			// $scope.userObj = $firebaseSimpleLogin(userRef);
-			// $scope.userObj.$getCurrentUser().then(function(){
-			//    console.log("newMessage: ", newMessage)
-			//    var message = {text: newMessage, userId: $scope.userObj.user.id};
-			//    console.log(message);
-			//    $scope.messages.$add(message);
-			// });
-			
-			// $scope.newMessage = null;
-		 }
-	  };
-   }])
+	// add new recipes to the list
+	$scope.saveRecipe = function() {
+		if( $scope.name !== "" && ($scope.ingredients.length > 0 || $scope.directions.length > 0) ) {
+			var recipe = $scope.newRecipe;
+			recipe.ingredients = $scope.ingredients;
+			recipe.directions = $scope.directions;
+			recipe.name = $scope.name;
+			recipe.userId = $scope.curUser.id;
+			$scope.recipes.$add(recipe);
+		}
+	};
+}])
 
    .controller('LoginCtrl', ['$scope', 'loginService', '$location', function($scope, loginService, $location) {
 	  $scope.email = null;
@@ -117,6 +113,8 @@ angular.module('myApp.controllers', ['firebase'])
 
    .controller('AccountCtrl', ['$scope', 'loginService', 'syncData', '$location', function($scope, loginService, syncData, $location) {
 	  syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user');
+
+	  console.log("auth: ", $scope.auth);
 
 	  $scope.logout = function() {
 		 loginService.logout();

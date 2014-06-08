@@ -14,6 +14,16 @@ angular.module('myApp.service.firebase', ['firebase'])
       }
    }])
 
+    .service('curUser', ['firebaseRef', '$firebaseSimpleLogin', function(firebaseRef, $firebaseSimpleLogin){
+
+      return function(){
+        var userRef = firebaseRef();
+        var userObj = $firebaseSimpleLogin(userRef);
+        return userObj.$getCurrentUser().then();
+      }
+
+    }])
+
    // a simple utility to create $firebase objects from angularFire
    .service('syncData', ['$firebase', 'firebaseRef', function($firebase, firebaseRef) {
       /**
