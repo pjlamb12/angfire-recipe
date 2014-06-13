@@ -23,12 +23,19 @@
 						</div>
 					</form>
 				</div>
-				<ul class="list-group">
-					<li class="list-group-item clearfix" ng-repeat="ingr in ingredients">
-						<span>{{ingr.text}}</span>
-						<button class="btn btn-xs btn-danger pull-right" ng-click="removeIngr($index)">x</button>
-					</li>
-				</ul>
+				<p></p>
+				<div>
+					<div ui-sortable ng-model="ingredients">
+						<p class="input-group movable" ng-repeat="ingr in ingredients">
+							<span class="form-control">
+								{{ingr.text}}
+							</span>
+							<span class="input-group-btn">
+								<button class="btn btn-danger" ng-click="removeIngr($index)">x</button>
+							</span>
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="form-group">
@@ -44,12 +51,19 @@
 						</div>
 					</form>
 				</div>
-				<ul class="list-group">
-					<li class="list-group-item clearfix" ng-repeat="dir in directions">
-						<span>{{dir.text}}</span>
-						<button class="btn btn-xs btn-danger pull-right" ng-click="removeDirection($index)">x</button>
-					</li>
-				</ul>
+				<p></p>
+				<div>
+					<div ui-sortable ng-model="directions">
+						<p class="input-group movable" ng-repeat="dir in directions">
+							<span class="form-control">
+								{{dir.text}}
+							</span>
+							<span class="input-group-btn">
+								<button class="btn btn-danger" ng-click="removeDirection($index)">x</button>
+							</span>
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
 		<button class="btn btn-primary" type="submit" ng-click="saveRecipe()">Save Recipe</button>

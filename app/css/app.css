@@ -1,3 +1,7 @@
 .row{
   margin-bottom: 20px;
 }
+
+.movable{
+	cursor: move;
+}

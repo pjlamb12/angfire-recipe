@@ -14,9 +14,10 @@
     "bootstrap": "~3.1.0",
     "jquery": "~2.1.0",
     "components-font-awesome": "latest",
-    "html5-boilerplate": "~4.3.0", 
+    "html5-boilerplate": "~4.3.0",
     "firebase": "latest",
     "angularfire": "latest",
-    "firebase-simple-login": "latest"
+    "firebase-simple-login": "latest",
+    "angular-ui-sortable": "~0.12.8"
   }
 }
