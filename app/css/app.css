@@ -5,3 +5,7 @@
 .movable{
 	cursor: move;
 }
+
+.movable-input{
+	padding: 10px 0;
+}
