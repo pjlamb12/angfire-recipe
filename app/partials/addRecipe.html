@@ -27,9 +27,7 @@
 				<div>
 					<div ui-sortable ng-model="ingredients">
 						<p class="input-group movable" ng-repeat="ingr in ingredients">
-							<span class="form-control">
-								{{ingr.text}}
-							</span>
+							<input type="text" ng-model="ingr.text" class="form-control">
 							<span class="input-group-btn">
 								<button class="btn btn-danger" ng-click="removeIngr($index)">x</button>
 							</span>
@@ -55,9 +53,7 @@
 				<div>
 					<div ui-sortable ng-model="directions">
 						<p class="input-group movable" ng-repeat="dir in directions">
-							<span class="form-control">
-								{{dir.text}}
-							</span>
+							<input type="text" ng-model="dir.text" class="form-control">
 							<span class="input-group-btn">
 								<button class="btn btn-danger" ng-click="removeDirection($index)">x</button>
 							</span>
