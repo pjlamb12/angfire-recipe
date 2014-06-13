@@ -1,0 +1,22 @@
+<div class="row">
+	<h2>Your Recipe Book</h2>
+</div>
+
+<div class="row">
+	<div class="list-group" id="myRecipes">
+		<p class="input-group clearfix" ng-repeat="rec in recipes | orderByPriority">
+			<span class="form-control">{{rec.name}}</span>
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>
+			</span>
+		</p>
+	</div>
+</div>
+
+<div class="row" ng-show="empty">
+	<p>
+		You haven't entered any recipes. <a href="#/addRecipe">Click Here</a> to add your first!
+	</p>
+</div>

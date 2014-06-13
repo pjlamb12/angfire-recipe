@@ -3,11 +3,11 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['firebase'])
-   .controller('HomeCtrl', ['$scope', 'syncData', function($scope, syncData) {
-	  syncData('syncedValue').$bind($scope, 'syncedValue');
+   .controller('HomeCtrl', ['$scope', 'syncDataLimit', function($scope, syncDataLimit) {
+	  syncDataLimit('syncedValue').$bind($scope, 'syncedValue');
    }])
 
-.controller('AddRecipeCtrl', ['$scope', 'syncData', '$firebase', '$firebaseSimpleLogin', 'FBURL', function($scope, syncData, $firebase, $firebaseSimpleLogin, FBURL){
+.controller('AddRecipeCtrl', ['$scope', 'syncDataLimit', function($scope, syncDataLimit){
 	$scope.newRecipe = {userId: null, name: "", ingredients: [], directions: []};
 	$scope.ingredients = [];
 	$scope.ingrText = "";
@@ -16,9 +16,10 @@ angular.module('myApp.controllers', ['firebase'])
 	$scope.name = "";
 	$scope.curUser = $scope.auth.user;
 
-	// constrain number of recipes by limit into syncData
+	// constrain number of recipes by limit into syncDataLimit
 	// add the array into $scope.recipes
-	$scope.recipes = syncData('recipes', 10);
+	var path = 'user-data/' + $scope.curUser.uid + '/recipes';
+	$scope.recipes = syncDataLimit(path, 10);
 
 	$scope.addIngredient = function(){
 		if( $scope.ingrText !== ""){
@@ -51,107 +52,150 @@ angular.module('myApp.controllers', ['firebase'])
 			recipe.name = $scope.name;
 			recipe.userId = $scope.curUser.id;
 			$scope.recipes.$add(recipe);
+			console.log("Recipes: ", $scope.recipes);
+			$scope.ingredients = [];
+			$scope.directions = [];
+			$scope.name = "";
 		}
 	};
 }])
 
-   .controller('LoginCtrl', ['$scope', 'loginService', '$location', function($scope, loginService, $location) {
-	  $scope.email = null;
-	  $scope.pass = null;
-	  $scope.confirm = null;
-	  $scope.createMode = false;
+.controller('MyRecipeCtrl', ['$scope', 'syncDataLimit', '$modal', 'FBURL', 'Firebase', '$firebase', function($scope, syncDataLimit, $modal, FBURL, Firebase, $firebase){
+	$scope.curUser = $scope.auth.user;
+	var path = 'user-data/' + $scope.curUser.uid + '/recipes';
 
-	  $scope.login = function(cb) {
-		 $scope.err = null;
-		 if( !$scope.email ) {
+	$scope.recipes = syncDataLimit(path, 100)
+	.$on("value", function(snap){
+		$scope.empty = snap.snapshot.value === null
+	})
+
+	$scope.deleteRecipe = function (id, name){
+		var modalInstance = $modal.open({
+			templateUrl: 'partials/confirmRecipeDelete.html',
+			controller: ConfirmDeleteCtrl,
+			resolve: {
+				name: function(){
+					return name;
+				}
+			}
+		});
+
+		modalInstance.result.then(function(){
+			var deletePath = new Firebase(FBURL + path + '/' + id);
+			var deleteRef = $firebase(deletePath);
+			deleteRef.$remove();
+		});
+	};
+
+}])
+
+.controller('LoginCtrl', ['$scope', 'loginService', '$location', function($scope, loginService, $location) {
+	$scope.email = null;
+	$scope.pass = null;
+	$scope.confirm = null;
+	$scope.createMode = false;
+
+	$scope.login = function(cb) {
+		$scope.err = null;
+		if( !$scope.email ) {
 			$scope.err = 'Please enter an email address';
-		 }
-		 else if( !$scope.pass ) {
+		}
+		else if( !$scope.pass ) {
 			$scope.err = 'Please enter a password';
-		 }
-		 else {
+		}
+		else {
 			loginService.login($scope.email, $scope.pass, function(err, user) {
-			   $scope.err = err? err + '' : null;
-			   if( !err ) {
-				  cb && cb(user);
-			   }
+				$scope.err = err? err + '' : null;
+				if( !err ) {
+					cb && cb(user);
+				}
 			});
-		 }
-	  };
+		}
+	};
 
-	  $scope.createAccount = function() {
-		 $scope.err = null;
-		 if( assertValidLoginAttempt() ) {
+	$scope.createAccount = function() {
+		$scope.err = null;
+		if( assertValidLoginAttempt() ) {
 			loginService.createAccount($scope.email, $scope.pass, function(err, user) {
-			   if( err ) {
-				  $scope.err = err? err + '' : null;
-			   }
-			   else {
-				  // must be logged in before I can write to my profile
-				  $scope.login(function() {
-					 loginService.createProfile(user.uid, user.email);
-					 $location.path('/account');
-				  });
-			   }
+				if( err ) {
+					$scope.err = err? err + '' : null;
+				}
+				else {
+					// must be logged in before I can write to my profile
+					$scope.login(function() {
+						loginService.createProfile(user.uid, user.email);
+						$location.path('/account');
+					});
+				}
 			});
-		 }
-	  };
+		}
+	};
 
-	  function assertValidLoginAttempt() {
-		 if( !$scope.email ) {
+	function assertValidLoginAttempt() {
+		if( !$scope.email ) {
 			$scope.err = 'Please enter an email address';
-		 }
-		 else if( !$scope.pass ) {
+		}
+		else if( !$scope.pass ) {
 			$scope.err = 'Please enter a password';
-		 }
-		 else if( $scope.pass !== $scope.confirm ) {
+		}
+		else if( $scope.pass !== $scope.confirm ) {
 			$scope.err = 'Passwords do not match';
-		 }
-		 return !$scope.err;
-	  }
-   }])
+		}
+		return !$scope.err;
+	}
+}])
 
-   .controller('AccountCtrl', ['$scope', 'loginService', 'syncData', '$location', function($scope, loginService, syncData, $location) {
-	  syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user');
+.controller('AccountCtrl', ['$scope', 'loginService', 'syncDataLimit', '$location', function($scope, loginService, syncDataLimit, $location) {
+	syncDataLimit(['users', $scope.auth.user.uid]).$bind($scope, 'user');
 
-	  console.log("auth: ", $scope.auth);
+	$scope.logout = function() {
+		loginService.logout();
+	};
 
-	  $scope.logout = function() {
-		 loginService.logout();
-	  };
+	$scope.oldpass = null;
+	$scope.newpass = null;
+	$scope.confirm = null;
 
-	  $scope.oldpass = null;
-	  $scope.newpass = null;
-	  $scope.confirm = null;
+	$scope.reset = function() {
+		$scope.err = null;
+		$scope.msg = null;
+	};
 
-	  $scope.reset = function() {
-		 $scope.err = null;
-		 $scope.msg = null;
-	  };
+	$scope.updatePassword = function() {
+		$scope.reset();
+		loginService.changePassword(buildPwdParms());
+	};
 
-	  $scope.updatePassword = function() {
-		 $scope.reset();
-		 loginService.changePassword(buildPwdParms());
-	  };
-
-	  function buildPwdParms() {
-		 return {
+	function buildPwdParms() {
+		return {
 			email: $scope.auth.user.email,
 			oldpass: $scope.oldpass,
 			newpass: $scope.newpass,
 			confirm: $scope.confirm,
 			callback: function(err) {
-			   if( err ) {
-				  $scope.err = err;
-			   }
-			   else {
-				  $scope.oldpass = null;
-				  $scope.newpass = null;
-				  $scope.confirm = null;
-				  $scope.msg = 'Password updated!';
-			   }
+				if( err ) {
+					$scope.err = err;
+				}
+				else {
+					$scope.oldpass = null;
+					$scope.newpass = null;
+					$scope.confirm = null;
+					$scope.msg = 'Password updated!';
+				}
 			}
-		 }
-	  }
+		}
+	}
 
-   }]);
+}]);
+
+var ConfirmDeleteCtrl = function($scope, $modalInstance, name){
+	$scope.recipeName = name;
+
+	$scope.ok = function(){
+		$modalInstance.close();
+	}
+
+	$scope.cancel = function(){
+		$modalInstance.dismiss('cancel');
+	}
+};

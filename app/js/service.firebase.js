@@ -25,7 +25,7 @@ angular.module('myApp.service.firebase', ['firebase'])
     }])
 
    // a simple utility to create $firebase objects from angularFire
-   .service('syncData', ['$firebase', 'firebaseRef', function($firebase, firebaseRef) {
+   .service('syncDataLimit', ['$firebase', 'firebaseRef', function($firebase, firebaseRef) {
       /**
        * @function
        * @name syncData
@@ -36,6 +36,20 @@ angular.module('myApp.service.firebase', ['firebase'])
       return function(path, limit) {
          var ref = firebaseRef(path);
          limit && (ref = ref.limit(limit));
+         return $firebase(ref);
+      }
+   }])
+
+   .service('syncData', ['$firebase', 'firebaseRef', function($firebase, firebaseRef) {
+      /**
+       * @function
+       * @name syncData
+       * @param {String|Array...} path
+       * @param {int} [limit]
+       * @return a Firebase instance
+       */
+      return function(path) {
+         var ref = firebaseRef(path);
          return $firebase(ref);
       }
    }]);
