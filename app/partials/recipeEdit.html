@@ -2,7 +2,6 @@
 	<h2>Edit Recipe</h2>
 </div>
 
-
 <div class="row">
 	<div class="form-horizontal" role="form">
 		<div class="form-group">
@@ -27,7 +26,12 @@
 				<p></p>
 				<div>
 					<div ui-sortable ng-model="ingredients">
-						<p class="input-group input-group-sm movable movable-input" ng-repeat="ingr in ingredients">
+						<p class="input-group movable" ng-repeat="ingr in ingredients">
+							<span class="input-group-btn">
+								<span class="btn btn-primary movable">
+									<span class="glyphicon glyphicon-move"></span>
+								</span>
+							</span>
 							<input type="text" ng-model="ingr.text" class="form-control">
 							<span class="input-group-btn">
 								<button class="btn btn-danger" ng-click="removeIngr($index)">x</button>
@@ -54,6 +58,11 @@
 				<div>
 					<div ui-sortable ng-model="directions">
 						<p class="input-group movable" ng-repeat="dir in directions">
+							<span class="input-group-btn">
+								<span class="btn btn-primary movable">
+									<span class="glyphicon glyphicon-move"></span>
+								</span>
+							</span>
 							<input type="text" ng-model="dir.text" class="form-control">
 							<span class="input-group-btn">
 								<button class="btn btn-danger" ng-click="removeDirection($index)">x</button>
@@ -63,6 +72,6 @@
 				</div>
 			</div>
 		</div>
-		<button class="btn btn-primary" type="submit" ng-click="saveRecipe()">Save Recipe</button>
+		<button class="btn btn-primary" type="submit" ng-click="updateRecipe()">Update Recipe</button>
 	</div>
 </div>

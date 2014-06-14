@@ -7,7 +7,14 @@ angular.module('myApp.controllers', ['firebase'])
 	  syncDataLimit('syncedValue').$bind($scope, 'syncedValue');
    }])
 
-.controller('AddRecipeCtrl', ['$scope', 'syncDataLimit', function($scope, syncDataLimit){
+.controller('NavCtrl', ['$scope', 'loginService', function($scope, loginService){
+	$scope.logout = function() {
+		loginService.logout();
+	};
+
+}])
+
+.controller('AddRecipeCtrl', ['$scope', 'syncDataLimit', '$location', function($scope, syncDataLimit, $location){
 	$scope.newRecipe = {userId: null, name: "", ingredients: [], directions: []};
 	$scope.ingredients = [];
 	$scope.ingrText = "";
@@ -56,6 +63,7 @@ angular.module('myApp.controllers', ['firebase'])
 			$scope.ingredients = [];
 			$scope.directions = [];
 			$scope.name = "";
+			$location.path('/myRecipes')
 		}
 	};
 }])
@@ -93,9 +101,46 @@ angular.module('myApp.controllers', ['firebase'])
 	$scope.curUser = $scope.auth.user;
 	var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $routeParams.recipeId;
 	$scope.recipe = syncData(path);
-	$scope.ingredients = $scope.recipe.ingredients;
 
-	console.log($scope.recipe.name);
+}])
+
+.controller('RecipeEditCtrl', ['$scope', 'syncData', '$routeParams', '$location', function($scope, syncData, $routeParams, $location){
+	$scope.curUser = $scope.auth.user;
+	$scope.newRecipe = {ingredients: null, directions: null, name: ''};
+	var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $routeParams.recipeId;
+	$scope.recipe = syncData(path);
+	$scope.ingredients = $scope.recipe.ingredients;
+	$scope.directions = $scope.recipe.directions;
+	$scope.name = $scope.recipe.name;
+
+	$scope.addIngredient = function(){
+		if( $scope.ingrText !== ""){
+			$scope.ingredients.push({text: $scope.ingrText});
+			$scope.ingrText = "";
+		}
+	}
+
+	$scope.addDirection = function(){
+		if( $scope.directionText !== ""){
+			$scope.directions.push({text: $scope.directionText});
+			$scope.directionText = "";
+		}
+	}
+
+	$scope.removeIngr = function($index){
+		$scope.ingredients.splice($index, 1);
+	}
+
+	$scope.removeDirection = function($index){
+		$scope.directions.splice($index, 1);
+	}
+
+	$scope.updateRecipe = function(){
+		$scope.recipe.$update({ingredients: $scope.ingredients, directions: $scope.directions, name: $scope.name});
+		$scope.newRecipe = {ingredients: null, directions: null, name: ''};
+		$location.path('/myRecipes');
+	}
+
 }])
 
 .controller('LoginCtrl', ['$scope', 'loginService', '$location', function($scope, loginService, $location) {

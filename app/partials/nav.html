@@ -4,7 +4,7 @@
     <li ng-hide="auth"><a href="#/login">login</a></li>
     <li ng-show="auth"><a href="#/account">account</a></li>
 </ul> -->
-<nav class="navbar navbar-default" role="navigation">
+<nav ng-controller="NavCtrl" class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -20,11 +20,17 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
+				<li ng-show-auth="logout,error"><a href="#/login">Login</a></li>
 				<li ng-show-auth="login"><a href="#/home">Home</a></li>
 				<li ng-show-auth="login"><a href="#/myRecipes">My Recipes</a></li>
 				<li ng-show-auth="login"><a href="#/addRecipe">Add Recipe</a></li>
-				<li ng-show-auth="logout,error"><a href="#/login">Login</a></li>
-				<li ng-show-auth="login"><a href="#/account">Account</a></li>
+				<li ng-show-auth="login" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="glyphicon glyphicon-cog"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#/account">Account</a></li>
+						<li ng-click="logout()"><a href="#/login">Logout <b class="glyphicon glyphicon-log-out"></b></a></li>
+					</ul>
+				</li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->

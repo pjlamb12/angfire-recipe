@@ -18,7 +18,7 @@
 						<div class="input-group">
 							<input id="ingrText" type="text" class="form-control" placeholder="Ingredient..." ng-model="ingrText">
 							<span class="input-group-btn">
-								<button type="submit" ng-click="addIngredient()" class="btn btn-primary">Add</button>
+								<button type="submit" ng-click="addIngredient()" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span></button>
 							</span>
 						</div>
 					</form>
@@ -26,10 +26,15 @@
 				<p></p>
 				<div>
 					<div ui-sortable ng-model="ingredients">
-						<p class="input-group input-group-sm movable movable-input" ng-repeat="ingr in ingredients">
+						<p class="input-group movable" ng-repeat="ingr in ingredients">
+							<span class="input-group-btn">
+								<span class="btn btn-primary movable">
+									<span class="glyphicon glyphicon-move"></span>
+								</span>
+							</span>
 							<input type="text" ng-model="ingr.text" class="form-control">
 							<span class="input-group-btn">
-								<button class="btn btn-danger" ng-click="removeIngr($index)">x</button>
+								<button class="btn btn-danger" ng-click="removeIngr($index)"><span class="glyphicon glyphicon-remove"></span></button>
 							</span>
 						</p>
 					</div>
@@ -44,7 +49,7 @@
 						<div class="input-group">
 							<input id="directionText" type="text" class="form-control" placeholder="Direction..." ng-model="directionText">
 							<span class="input-group-btn">
-								<button type="submit" ng-click="addDirection()" class="btn btn-primary">Add</button>
+								<button type="submit" ng-click="addDirection()" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span></button>
 							</span>
 						</div>
 					</form>
@@ -53,9 +58,14 @@
 				<div>
 					<div ui-sortable ng-model="directions">
 						<p class="input-group movable" ng-repeat="dir in directions">
+							<span class="input-group-btn">
+								<span class="btn btn-primary movable">
+									<span class="glyphicon glyphicon-move"></span>
+								</span>
+							</span>
 							<input type="text" ng-model="dir.text" class="form-control">
 							<span class="input-group-btn">
-								<button class="btn btn-danger" ng-click="removeDirection($index)">x</button>
+								<button class="btn btn-danger" ng-click="removeDirection($index)"><span class="glyphicon glyphicon-remove"></span></button>
 							</span>
 						</p>
 					</div>
