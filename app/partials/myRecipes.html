@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="list-group" id="myRecipes">
 		<p class="input-group clearfix" ng-repeat="rec in recipes | orderByPriority">
-			<span class="form-control">{{rec.name}}</span>
+			<a class="form-control" href="#/myRecipes/{{rec.$id}}">{{rec.name}}</a>
 			<span class="input-group-btn">
 				<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
 					<span class="glyphicon glyphicon-trash"></span>

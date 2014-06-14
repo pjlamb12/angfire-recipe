@@ -89,6 +89,15 @@ angular.module('myApp.controllers', ['firebase'])
 
 }])
 
+.controller('RecipeDetailCtrl', ['$scope', 'syncData', '$routeParams', function($scope, syncData, $routeParams){
+	$scope.curUser = $scope.auth.user;
+	var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $routeParams.recipeId;
+	$scope.recipe = syncData(path);
+	$scope.ingredients = $scope.recipe.ingredients;
+
+	console.log($scope.recipe.name);
+}])
+
 .controller('LoginCtrl', ['$scope', 'loginService', '$location', function($scope, loginService, $location) {
 	$scope.email = null;
 	$scope.pass = null;
