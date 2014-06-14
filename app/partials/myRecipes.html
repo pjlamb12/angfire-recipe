@@ -7,6 +7,9 @@
 		<p class="input-group clearfix" ng-repeat="rec in recipes | orderByPriority">
 			<a class="form-control" href="#/myRecipes/{{rec.$id}}">{{rec.name}}</a>
 			<span class="input-group-btn">
+				<a class="btn btn-primary" href="#/myRecipes/edit/{{rec.$id}}">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</a>
 				<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
 					<span class="glyphicon glyphicon-trash"></span>
 				</button>
