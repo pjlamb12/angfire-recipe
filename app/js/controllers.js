@@ -65,7 +65,7 @@ angular.module('myApp.controllers', ['firebase'])
 	};
 }])
 
-.controller('MyRecipeCtrl', ['$scope', 'syncDataLimit', '$modal', 'FBURL', 'Firebase', '$firebase', function($scope, syncDataLimit, $modal, FBURL, Firebase, $firebase){
+.controller('MyRecipeCtrl', ['$scope', 'syncData', '$modal', 'FBURL', 'Firebase', '$firebase', function($scope, syncData, $modal, FBURL, Firebase, $firebase){
 	$scope.curUser = $scope.auth.user;
 	var basePath = 'user-data/' + $scope.curUser.uid + '/recipes/';
 
@@ -92,7 +92,7 @@ angular.module('myApp.controllers', ['firebase'])
 	$scope.drinkLength = 0;
 
 	//get the counts for all the other recipe types
-	$scope.recipeApps = syncDataLimit(appetizers, 10).$on('loaded', function(snap){
+	$scope.recipeApps = syncData(appetizers, 10).$on('loaded', function(snap){
 		var count = 0;
 		angular.forEach(snap, function(item){
 			if(item != null || item.value != null){
@@ -102,7 +102,7 @@ angular.module('myApp.controllers', ['firebase'])
 		$scope.appetizerLength = count;
 		checkEmpty();
 	}).$on('child_added', function(snap){ $scope.appetizerLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.appetizerLength--;  checkEmpty();});
-	$scope.recipeSoups = syncDataLimit(soups, 10).$on('loaded', function(snap){
+	$scope.recipeSoups = syncData(soups, 10).$on('loaded', function(snap){
 		var count = 0;
 		angular.forEach(snap, function(item){
 			if(item != null || item.value != null){
@@ -112,7 +112,7 @@ angular.module('myApp.controllers', ['firebase'])
 		$scope.soupLength = count;
 		checkEmpty();
 	}).$on('child_added', function(snap){ $scope.soupLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.soupLength--;  checkEmpty();});
-	$scope.recipeSalads = syncDataLimit(salads, 10).$on('loaded', function(snap){
+	$scope.recipeSalads = syncData(salads, 10).$on('loaded', function(snap){
 		var count = 0;
 		angular.forEach(snap, function(item){
 			if(item != null || item.value != null){
@@ -122,7 +122,7 @@ angular.module('myApp.controllers', ['firebase'])
 		$scope.saladLength = count;
 		checkEmpty();
 	}).$on('child_added', function(snap){ $scope.saladLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.saladLength--;  checkEmpty();});
-	$scope.recipeEntrees = syncDataLimit(entrees, 10).$on('loaded', function(snap){
+	$scope.recipeEntrees = syncData(entrees, 10).$on('loaded', function(snap){
 		var count = 0;
 		angular.forEach(snap, function(item){
 			if(item != null || item.value != null){
@@ -132,7 +132,7 @@ angular.module('myApp.controllers', ['firebase'])
 		$scope.entreeLength = count;
 		checkEmpty();
 	}).$on('child_added', function(snap){ $scope.entreeLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.entreeLength--;  checkEmpty();});
-	$scope.recipeDesserts = syncDataLimit(desserts, 10).$on('loaded', function(snap){
+	$scope.recipeDesserts = syncData(desserts, 10).$on('loaded', function(snap){
 		var count = 0;
 		angular.forEach(snap, function(item){
 			if(item != null || item.value != null){
@@ -142,7 +142,7 @@ angular.module('myApp.controllers', ['firebase'])
 		$scope.dessertLength = count;
 		checkEmpty();
 	}).$on('child_added', function(snap){ $scope.dessertLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.dessertLength--; checkEmpty();});
-	$scope.recipeDrinks = syncDataLimit(drinks, 10).$on('loaded', function(snap){
+	$scope.recipeDrinks = syncData(drinks, 10).$on('loaded', function(snap){
 		var count = 0;
 		angular.forEach(snap, function(item){
 			if(item != null || item.value != null){
@@ -164,7 +164,6 @@ angular.module('myApp.controllers', ['firebase'])
 	}
 
 	$scope.deleteRecipe = function (id, name, recipeType){
-		console.log("Recipe Type: ", recipeType);
 		var modalInstance = $modal.open({
 			templateUrl: 'partials/confirmRecipeDelete.html',
 			controller: ConfirmDeleteCtrl,

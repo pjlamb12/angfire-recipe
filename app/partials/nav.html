@@ -21,13 +21,18 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li ng-show-auth="logout,error"><a href="#/login">Login</a></li>
-				<li ng-show-auth="login"><a href="#/home">Home</a></li>
-				<li ng-show-auth="login"><a href="#/myRecipes">My Recipes</a></li>
-				<li ng-show-auth="login"><a href="#/addRecipe">Add Recipe</a></li>
+				<li ng-show-auth="login"><a href="#/home">Home <b class="glyphicon glyphicon-home"></b></a></li>
 				<li ng-show-auth="login" class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="glyphicon glyphicon-cog"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Recipe Book <b class="glyphicon glyphicon-book"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="#/account">Account</a></li>
+						<li><a href="#/myRecipes">My Recipes</a></li>
+						<li><a href="#/addRecipe">Add Recipe</a></li>
+					</ul>
+				</li>
+				<li ng-show-auth="login" class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account Info <b class="glyphicon glyphicon-cog"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#/account">My Account</a></li>
 						<li ng-click="logout()"><a href="#/login">Logout <b class="glyphicon glyphicon-log-out"></b></a></li>
 					</ul>
 				</li>

@@ -4,7 +4,8 @@
 
 <div class="row">
 	<accordion close-others="true" ng-hide="allEmpty">
-		<accordion-group heading="Appetizers" ng-show="appetizerLength > 0">
+		<accordion-group ng-show="appetizerLength > 0">
+			<accordion-heading>Appetizers</accordion-heading>
 			<div class="list-group" id="recipeApps">
 				<p class="input-group clearfix" ng-repeat="rec in recipeApps | orderByPriority">
 					<span class="form-control"><a href="#/myRecipes/{{appetizerType}}/{{rec.$id}}">{{rec.name}}</a></span>
@@ -19,7 +20,8 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group heading="Soups" ng-show="soupLength > 0">
+		<accordion-group ng-show="soupLength > 0">
+			<accordion-heading>Soups</accordion-heading>
 			<div class="list-group" id="recipeSoups">
 				<p class="input-group clearfix" ng-repeat="rec in recipeSoups | orderByPriority">
 					<span class="form-control"><a href="#/myRecipes/{{soupType}}/{{rec.$id}}">{{rec.name}}</a></span>
@@ -34,7 +36,8 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group heading="Salads" ng-show="saladLength > 0">
+		<accordion-group ng-show="saladLength > 0">
+			<accordion-heading>Salads</accordion-heading>
 			<div class="list-group" id="recipeSalads">
 				<p class="input-group clearfix" ng-repeat="rec in recipeSalads | orderByPriority">
 					<span class="form-control"><a href="#/myRecipes/{{saladType}}/{{rec.$id}}">{{rec.name}}</a></span>
@@ -49,7 +52,8 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group heading="Entrees" ng-show="entreeLength > 0">
+		<accordion-group ng-show="entreeLength > 0">
+			<accordion-heading>Entrees</accordion-heading>
 			<div class="list-group" id="recipeEntrees">
 				<p class="input-group clearfix" ng-repeat="rec in recipeEntrees | orderByPriority">
 					<span class="form-control"><a href="#/myRecipes/{{entreeType}}/{{rec.$id}}">{{rec.name}}</a></span>
@@ -64,7 +68,8 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group heading="Desserts" ng-show="dessertLength > 0">
+		<accordion-group ng-show="dessertLength > 0">
+			<accordion-heading>Desserts</accordion-heading>
 			<div class="list-group" id="recipeDesserts">
 				<p class="input-group clearfix" ng-repeat="rec in recipeDesserts | orderByPriority">
 					<span class="form-control"><a href="#/myRecipes/{{dessertType}}/{{rec.$id}}">{{rec.name}}</a></span>
@@ -79,7 +84,8 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group heading="Drinks" ng-show="drinkLength > 0">
+		<accordion-group ng-show="drinkLength > 0">
+			<accordion-heading>Drinks</accordion-heading>
 			<div class="list-group" id="recipeDrinks">
 				<p class="input-group clearfix" ng-repeat="rec in recipeDrinks | orderByPriority">
 					<span class="form-control"><a href="#/myRecipes/{{drinkType}}/{{rec.$id}}">{{rec.name}}</a></span>
