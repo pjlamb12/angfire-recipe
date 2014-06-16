@@ -3,16 +3,16 @@
 </div>
 
 <div class="row">
-	<accordion close-others="true" ng-hide="false">
+	<accordion close-others="true" ng-hide="allEmpty">
 		<accordion-group heading="Appetizers" ng-show="appetizerLength > 0">
 			<div class="list-group" id="recipeApps">
 				<p class="input-group clearfix" ng-repeat="rec in recipeApps | orderByPriority">
-					<span class="form-control"><a href="#/myRecipes/appetizer/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="form-control"><a href="#/myRecipes/{{appetizerType}}/{{rec.$id}}">{{rec.name}}</a></span>
 					<span class="input-group-btn">
-						<a class="btn btn-primary" href="#/myRecipes/edit/appetizer/{{rec.$id}}">
+						<a class="btn btn-primary" href="#/myRecipes/edit/{{appetizerType}}/{{rec.$id}}">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
-						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name, appetizerType)">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</span>
@@ -22,12 +22,12 @@
 		<accordion-group heading="Soups" ng-show="soupLength > 0">
 			<div class="list-group" id="recipeSoups">
 				<p class="input-group clearfix" ng-repeat="rec in recipeSoups | orderByPriority">
-					<span class="form-control"><a href="#/myRecipes/soup/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="form-control"><a href="#/myRecipes/{{soupType}}/{{rec.$id}}">{{rec.name}}</a></span>
 					<span class="input-group-btn">
-						<a class="btn btn-primary" href="#/myRecipes/edit/soup/{{rec.$id}}">
+						<a class="btn btn-primary" href="#/myRecipes/edit/{{soupType}}/{{rec.$id}}">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
-						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name, soupType)">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</span>
@@ -37,12 +37,12 @@
 		<accordion-group heading="Salads" ng-show="saladLength > 0">
 			<div class="list-group" id="recipeSalads">
 				<p class="input-group clearfix" ng-repeat="rec in recipeSalads | orderByPriority">
-					<span class="form-control"><a href="#/myRecipes/salad/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="form-control"><a href="#/myRecipes/{{saladType}}/{{rec.$id}}">{{rec.name}}</a></span>
 					<span class="input-group-btn">
-						<a class="btn btn-primary" href="#/myRecipes/edit/salad/{{rec.$id}}">
+						<a class="btn btn-primary" href="#/myRecipes/edit/{{saladType}}/{{rec.$id}}">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
-						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name, saladType)">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</span>
@@ -52,12 +52,12 @@
 		<accordion-group heading="Entrees" ng-show="entreeLength > 0">
 			<div class="list-group" id="recipeEntrees">
 				<p class="input-group clearfix" ng-repeat="rec in recipeEntrees | orderByPriority">
-					<span class="form-control"><a href="#/myRecipes/entree/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="form-control"><a href="#/myRecipes/{{entreeType}}/{{rec.$id}}">{{rec.name}}</a></span>
 					<span class="input-group-btn">
-						<a class="btn btn-primary" href="#/myRecipes/edit/entree/{{rec.$id}}">
+						<a class="btn btn-primary" href="#/myRecipes/edit/{{entreeType}}/{{rec.$id}}">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
-						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name, entreeType)">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</span>
@@ -82,12 +82,12 @@
 		<accordion-group heading="Drinks" ng-show="drinkLength > 0">
 			<div class="list-group" id="recipeDrinks">
 				<p class="input-group clearfix" ng-repeat="rec in recipeDrinks | orderByPriority">
-					<span class="form-control"><a href="#/myRecipes/drink/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="form-control"><a href="#/myRecipes/{{drinkType}}/{{rec.$id}}">{{rec.name}}</a></span>
 					<span class="input-group-btn">
-						<a class="btn btn-primary" href="#/myRecipes/edit/drink/{{rec.$id}}">
+						<a class="btn btn-primary" href="#/myRecipes/edit/{{drinkType}}/{{rec.$id}}">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
-						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name, drinkType)">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
 					</span>
@@ -97,7 +97,6 @@
 	</accordion>
 </div>
 
-<!-- <p ng-show="allEmpty">
-	Test
+<p ng-show="allEmpty">
+	It looks like you don't have any recipes. <a href="#/addRecipe">Click Here</a> to add your first one!
 </p>
- -->
