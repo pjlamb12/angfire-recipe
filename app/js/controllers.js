@@ -15,18 +15,14 @@ angular.module('myApp.controllers', ['firebase'])
 }])
 
 .controller('AddRecipeCtrl', ['$scope', 'syncDataLimit', '$location', function($scope, syncDataLimit, $location){
-	$scope.newRecipe = {userId: null, name: "", ingredients: [], directions: []};
+	$scope.newRecipe = {name: "", ingredients: [], directions: []};
 	$scope.ingredients = [];
 	$scope.ingrText = "";
 	$scope.directionText = "";
 	$scope.directions = [];
 	$scope.name = "";
 	$scope.curUser = $scope.auth.user;
-
-	// constrain number of recipes by limit into syncDataLimit
-	// add the array into $scope.recipes
-	var path = 'user-data/' + $scope.curUser.uid + '/recipes';
-	$scope.recipes = syncDataLimit(path, 10);
+	$scope.recipeType = "";
 
 	$scope.addIngredient = function(){
 		if( $scope.ingrText !== ""){
@@ -52,14 +48,15 @@ angular.module('myApp.controllers', ['firebase'])
 
 	// add new recipes to the list
 	$scope.saveRecipe = function() {
-		if( $scope.name !== "" && ($scope.ingredients.length > 0 || $scope.directions.length > 0) ) {
+		if( $scope.name !== "" && ($scope.ingredients.length > 0 || $scope.directions.length > 0) && $scope.recipeType != "") {
+			var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $scope.recipeType;
+			$scope.recipes = syncDataLimit(path, 10);
+
 			var recipe = $scope.newRecipe;
 			recipe.ingredients = $scope.ingredients;
 			recipe.directions = $scope.directions;
 			recipe.name = $scope.name;
-			recipe.userId = $scope.curUser.id;
 			$scope.recipes.$add(recipe);
-			console.log("Recipes: ", $scope.recipes);
 			$scope.ingredients = [];
 			$scope.directions = [];
 			$scope.name = "";
@@ -70,14 +67,64 @@ angular.module('myApp.controllers', ['firebase'])
 
 .controller('MyRecipeCtrl', ['$scope', 'syncDataLimit', '$modal', 'FBURL', 'Firebase', '$firebase', function($scope, syncDataLimit, $modal, FBURL, Firebase, $firebase){
 	$scope.curUser = $scope.auth.user;
-	var path = 'user-data/' + $scope.curUser.uid + '/recipes';
+	var basePath = 'user-data/' + $scope.curUser.uid + '/recipes/';
+	var appetizers = basePath + 'appetizer';
+	var soups = basePath + 'soup';
+	var salads = basePath + 'salad';
+	var entrees = basePath + 'entree';
+	var desserts = basePath + 'dessert';
+	var drinks = basePath + 'drink';
 
-	$scope.recipes = syncDataLimit(path, 100)
-	.$on("value", function(snap){
-		$scope.empty = snap.snapshot.value === null
-	})
+	//Make the other dessert types
+	$scope.dessertType = 'dessert';
 
-	$scope.deleteRecipe = function (id, name){
+	//get the counts for all the other recipe types
+	$scope.recipeApps = syncDataLimit(appetizers, 10).$on('value', function(snap){
+		var keys = $scope.recipeApps.$getIndex();
+		$scope.appetizerLength = keys.length;
+	});
+	$scope.recipeSoups = syncDataLimit(soups, 10).$on('value', function(snap){
+		var keys = $scope.recipeApps.$getIndex();
+		$scope.soupLength = keys.length;
+	});
+	$scope.recipeSalads = syncDataLimit(salads, 10).$on('value', function(snap){
+		var keys = $scope.recipeApps.$getIndex();
+		$scope.saladLength = keys.length;
+	});
+	$scope.recipeEntrees = syncDataLimit(entrees, 10).$on('value', function(snap){
+		var keys = $scope.recipeApps.$getIndex();
+		$scope.entreeLength = keys.length;
+	});
+	$scope.recipeDesserts = syncDataLimit(desserts, 10).$on('loaded', function(snap){
+		var count = 0;
+		angular.forEach(snap, function(item){
+			if(item != null || item.value != null){
+				count++;
+			};
+		});
+		$scope.dessertLength = count;
+		console.log("Dessert Length: ", $scope.dessertLength);
+		console.log("Dessert Length: ", $scope.dessertLength < 1);
+	}).$on('child_added', function(snap){
+		$scope.dessertLength++;
+	}).$on('child_removed', function(snap){
+		$scope.dessertLength--;
+	});
+	$scope.recipeDrinks = syncDataLimit(drinks, 10).$on('value', function(snap){
+		var keys = $scope.recipeApps.$getIndex();
+		$scope.drinkLength = keys.length;
+	});
+
+	//Fix this
+	$scope.allEmpty = ($scope.dessertLength < 1) && 
+		($scope.drinkLength < 1) &&
+		($scope.appetizerLength < 1) &&
+		($scope.soupLength < 1) &&
+		($scope.saladLength < 1) &&
+		($scope.entreeLength < 1);
+
+	$scope.deleteRecipe = function (id, name, recipeType){
+		console.log("Recipe Type: ", recipeType);
 		var modalInstance = $modal.open({
 			templateUrl: 'partials/confirmRecipeDelete.html',
 			controller: ConfirmDeleteCtrl,
@@ -89,7 +136,7 @@ angular.module('myApp.controllers', ['firebase'])
 		});
 
 		modalInstance.result.then(function(){
-			var deletePath = new Firebase(FBURL + path + '/' + id);
+			var deletePath = new Firebase(FBURL + basePath + recipeType + '/' + id);
 			var deleteRef = $firebase(deletePath);
 			deleteRef.$remove();
 		});
@@ -99,7 +146,8 @@ angular.module('myApp.controllers', ['firebase'])
 
 .controller('RecipeDetailCtrl', ['$scope', 'syncData', '$routeParams', function($scope, syncData, $routeParams){
 	$scope.curUser = $scope.auth.user;
-	var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $routeParams.recipeId;
+	$scope.recipeType = $routeParams.recipeType;
+	var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $scope.recipeType + '/' + $routeParams.recipeId;
 	$scope.recipe = syncData(path);
 
 }])
@@ -107,7 +155,7 @@ angular.module('myApp.controllers', ['firebase'])
 .controller('RecipeEditCtrl', ['$scope', 'syncData', '$routeParams', '$location', function($scope, syncData, $routeParams, $location){
 	$scope.curUser = $scope.auth.user;
 	$scope.newRecipe = {ingredients: null, directions: null, name: ''};
-	var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $routeParams.recipeId;
+	var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $routeParams.recipeType + '/' + $routeParams.recipeId;
 	$scope.recipe = syncData(path);
 	$scope.ingredients = $scope.recipe.ingredients;
 	$scope.directions = $scope.recipe.directions;

@@ -3,23 +3,101 @@
 </div>
 
 <div class="row">
-	<div class="list-group" id="myRecipes">
-		<p class="input-group clearfix" ng-repeat="rec in recipes | orderByPriority">
-			<span class="form-control"><a href="#/myRecipes/{{rec.$id}}">{{rec.name}}</a></span>
-			<span class="input-group-btn">
-				<a class="btn btn-primary" href="#/myRecipes/edit/{{rec.$id}}">
-					<span class="glyphicon glyphicon-pencil"></span>
-				</a>
-				<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
-					<span class="glyphicon glyphicon-trash"></span>
-				</button>
-			</span>
-		</p>
-	</div>
+	<accordion close-others="true" ng-hide="false">
+		<accordion-group heading="Appetizers" ng-show="appetizerLength > 0">
+			<div class="list-group" id="recipeApps">
+				<p class="input-group clearfix" ng-repeat="rec in recipeApps | orderByPriority">
+					<span class="form-control"><a href="#/myRecipes/appetizer/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="input-group-btn">
+						<a class="btn btn-primary" href="#/myRecipes/edit/appetizer/{{rec.$id}}">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</span>
+				</p>
+			</div>
+		</accordion-group>
+		<accordion-group heading="Soups" ng-show="soupLength > 0">
+			<div class="list-group" id="recipeSoups">
+				<p class="input-group clearfix" ng-repeat="rec in recipeSoups | orderByPriority">
+					<span class="form-control"><a href="#/myRecipes/soup/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="input-group-btn">
+						<a class="btn btn-primary" href="#/myRecipes/edit/soup/{{rec.$id}}">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</span>
+				</p>
+			</div>
+		</accordion-group>
+		<accordion-group heading="Salads" ng-show="saladLength > 0">
+			<div class="list-group" id="recipeSalads">
+				<p class="input-group clearfix" ng-repeat="rec in recipeSalads | orderByPriority">
+					<span class="form-control"><a href="#/myRecipes/salad/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="input-group-btn">
+						<a class="btn btn-primary" href="#/myRecipes/edit/salad/{{rec.$id}}">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</span>
+				</p>
+			</div>
+		</accordion-group>
+		<accordion-group heading="Entrees" ng-show="entreeLength > 0">
+			<div class="list-group" id="recipeEntrees">
+				<p class="input-group clearfix" ng-repeat="rec in recipeEntrees | orderByPriority">
+					<span class="form-control"><a href="#/myRecipes/entree/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="input-group-btn">
+						<a class="btn btn-primary" href="#/myRecipes/edit/entree/{{rec.$id}}">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</span>
+				</p>
+			</div>
+		</accordion-group>
+		<accordion-group heading="Desserts" ng-show="dessertLength > 0">
+			<div class="list-group" id="recipeDesserts">
+				<p class="input-group clearfix" ng-repeat="rec in recipeDesserts | orderByPriority">
+					<span class="form-control"><a href="#/myRecipes/{{dessertType}}/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="input-group-btn">
+						<a class="btn btn-primary" href="#/myRecipes/edit/{{dessertType}}/{{rec.$id}}">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name, dessertType)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</span>
+				</p>
+			</div>
+		</accordion-group>
+		<accordion-group heading="Drinks" ng-show="drinkLength > 0">
+			<div class="list-group" id="recipeDrinks">
+				<p class="input-group clearfix" ng-repeat="rec in recipeDrinks | orderByPriority">
+					<span class="form-control"><a href="#/myRecipes/drink/{{rec.$id}}">{{rec.name}}</a></span>
+					<span class="input-group-btn">
+						<a class="btn btn-primary" href="#/myRecipes/edit/drink/{{rec.$id}}">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</span>
+				</p>
+			</div>
+		</accordion-group>
+	</accordion>
 </div>
 
-<div class="row" ng-show="empty">
-	<p>
-		You haven't entered any recipes. <a href="#/addRecipe">Click Here</a> to add your first!
-	</p>
-</div>
+<!-- <p ng-show="allEmpty">
+	Test
+</p>
+ -->

@@ -17,13 +17,13 @@ angular.module('myApp.routes', ['ngRoute'])
 			controller: 'MyRecipeCtrl'
 		});
 
-		$routeProvider.when('/myRecipes/:recipeId', {
+		$routeProvider.when('/myRecipes/:recipeType/:recipeId', {
 			authRequired: true, // must authenticate before viewing this page
 			templateUrl: 'partials/recipeDetail.html',
 			controller: 'RecipeDetailCtrl'
 		});
 
-		$routeProvider.when('/myRecipes/edit/:recipeId', {
+		$routeProvider.when('/myRecipes/edit/:recipeType/:recipeId', {
 			authRequired: true, // must authenticate before viewing this page
 			templateUrl: 'partials/recipeEdit.html',
 			controller: 'RecipeEditCtrl'
