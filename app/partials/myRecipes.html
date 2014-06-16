@@ -4,7 +4,7 @@
 
 <div class="row">
 	<accordion close-others="true" ng-hide="allEmpty">
-		<accordion-group ng-show="appetizerLength > 0">
+		<accordion-group is-open="appetizer.open" ng-show="appetizerLength > 0" ng-click="appetizer.open = !appetizer.open">
 			<accordion-heading>Appetizers</accordion-heading>
 			<div class="list-group" id="recipeApps">
 				<p class="input-group clearfix" ng-repeat="rec in recipeApps | orderByPriority">
@@ -20,7 +20,7 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group ng-show="soupLength > 0">
+		<accordion-group is-open="soup.open" ng-click="soup.open = !soup.open" ng-show="soupLength > 0">
 			<accordion-heading>Soups</accordion-heading>
 			<div class="list-group" id="recipeSoups">
 				<p class="input-group clearfix" ng-repeat="rec in recipeSoups | orderByPriority">
@@ -36,7 +36,7 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group ng-show="saladLength > 0">
+		<accordion-group is-open="salad.open" ng-click="salad.open = !salad.open" ng-show="saladLength > 0">
 			<accordion-heading>Salads</accordion-heading>
 			<div class="list-group" id="recipeSalads">
 				<p class="input-group clearfix" ng-repeat="rec in recipeSalads | orderByPriority">
@@ -52,7 +52,7 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group ng-show="entreeLength > 0">
+		<accordion-group is-open="entree.open" ng-click="entree.open = !entree.open" ng-show="entreeLength > 0">
 			<accordion-heading>Entrees</accordion-heading>
 			<div class="list-group" id="recipeEntrees">
 				<p class="input-group clearfix" ng-repeat="rec in recipeEntrees | orderByPriority">
@@ -68,7 +68,7 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group ng-show="dessertLength > 0">
+		<accordion-group is-open="dessert.open" ng-click="dessert.open = !dessert.open"  ng-show="dessertLength > 0">
 			<accordion-heading>Desserts</accordion-heading>
 			<div class="list-group" id="recipeDesserts">
 				<p class="input-group clearfix" ng-repeat="rec in recipeDesserts | orderByPriority">
@@ -84,7 +84,7 @@
 				</p>
 			</div>
 		</accordion-group>
-		<accordion-group ng-show="drinkLength > 0">
+		<accordion-group is-open="drink.open" ng-click="drink.open = !drink.open" ng-show="drinkLength > 0">
 			<accordion-heading>Drinks</accordion-heading>
 			<div class="list-group" id="recipeDrinks">
 				<p class="input-group clearfix" ng-repeat="rec in recipeDrinks | orderByPriority">
