@@ -36,6 +36,12 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
                auth.$logout();
             },
 
+            isAuth: function(){
+               assertAuth();
+               var user = auth.$getCurrentUser();
+               return user != null;
+            },
+
             changePassword: function(opts) {
                assertAuth();
                var cb = opts.callback || function() {};

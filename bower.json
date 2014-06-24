@@ -18,6 +18,7 @@
     "firebase": "latest",
     "angularfire": "latest",
     "firebase-simple-login": "latest",
-    "angular-ui-sortable": "~0.12.8"
+    "angular-ui-sortable": "~0.12.8",
+    "angular-ui-router": "~0.2.10"
   }
 }

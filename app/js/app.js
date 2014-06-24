@@ -1,22 +1,43 @@
 'use strict';
 
-// Declare app level module which depends on filters, and services
-angular.module('myApp',
-		['myApp.config', 'myApp.routes', 'myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers',
-			'waitForAuth', 'routeSecurity', 'ui.sortable', 'ui.bootstrap']
-	)
 
-	.run(['loginService', '$rootScope', 'FBURL', function(loginService, $rootScope, FBURL) {
-		if( FBURL === 'https://INSTANCE.firebaseio.com' ) {
-			// double-check that the app has been configured
-			angular.element(document.body).html('<h1>Please configure app/js/config.js before running!</h1>');
-			setTimeout(function() {
-				angular.element(document.body).removeClass('hide');
-			}, 250);
-		}
-		else {
-			// establish authentication
-			$rootScope.auth = loginService.init('/login');
-			$rootScope.FBURL = FBURL;
-		}
-	}]);
+// Declare app level module which depends on filters, and services
+var myApp = angular.module('myApp', [
+  'ngRoute',
+  'ui.router',
+  'myApp.home',
+  'myApp.login',
+  'myApp.view1',
+  'myApp.view2',
+  'myApp.nested',
+  'myApp.config',
+  'myApp.services',
+  'waitForAuth',
+  'stateSecurity',
+  // 'routeSecurity',
+  // 'myApp.filters',
+  // 'myApp.directives',
+  // 'myApp.controllers'
+]);
+
+myApp.run(['$rootScope', '$state', '$stateParams', 'loginService', 'FBURL', 
+ function($rootScope, $state, $stateParams, loginService, FBURL){
+	$rootScope.$state = $state;
+	$rootScope.$stateParams = $stateParams;
+  $rootScope.FBURL = FBURL;
+  $rootScope.auth = loginService.init();
+}]);
+
+myApp.config(function($urlRouterProvider){
+  $urlRouterProvider.otherwise('/');
+});
+
+myApp.controller('mainController', function($scope){
+
+});
+// config(['$routeProvider', function($routeProvider) {
+//   $routeProvider.when('/', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
+//   $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
+//   $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
+//   $routeProvider.otherwise({redirectTo: '/'});
+// }]);

@@ -1,10 +1,4 @@
-<!-- <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-    <li ng-hide="auth"><a href="#/login">login</a></li>
-    <li ng-show="auth"><a href="#/account">account</a></li>
-</ul> -->
-<nav ng-controller="NavCtrl" class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -14,26 +8,18 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#/">AF Chat</a>
+			<a class="navbar-brand" ui-sref="home">Brand</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li ng-show-auth="logout,error"><a href="#/login">Login</a></li>
-				<li ng-show-auth="login"><a href="#/home">Home <b class="glyphicon glyphicon-home"></b></a></li>
-				<li ng-show-auth="login" class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Recipe Book <b class="glyphicon glyphicon-book"></b></a>
+				<li ng-class="{active: $state.includes('view1')}"><a ui-sref="view1">View 1</a></li>
+				<li ng-class="{active: $state.includes('view2')}"><a ui-sref="view2">View 2</a></li>
+				<li ng-class="{active: $state.includes('nested')}">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Nested <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="#/myRecipes">My Recipes</a></li>
-						<li><a href="#/addRecipe">Add Recipe</a></li>
-					</ul>
-				</li>
-				<li ng-show-auth="login" class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account Info <b class="glyphicon glyphicon-cog"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#/account">My Account</a></li>
-						<li ng-click="logout()"><a href="#/login">Logout <b class="glyphicon glyphicon-log-out"></b></a></li>
+						<li><a ui-sref="nested.nested1">Nested 1</a></li>
 					</ul>
 				</li>
 			</ul>

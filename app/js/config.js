@@ -7,11 +7,12 @@ angular.module('myApp.config', [])
 	// see tags for other versions: https://github.com/firebase/angularFire-seed/tags
 	.constant('version', '0.6')
 
-	// where to redirect users if they need to authenticate (see module.routeSecurity)
-	.constant('loginRedirectPath', '/login')
-
 	// your Firebase URL goes here
 	.constant('FBURL', 'https://lamb-recipe-book.firebaseio.com/')
+
+	.constant('loginStateName', 'login')
+
+	.constant('alreadyLoggedInStateName', 'home')
 
 /*********************
  * !!FOR E2E TESTING!!

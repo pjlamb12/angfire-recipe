@@ -9,4 +9,3 @@
       // .service('serviceName', ['dependency', function(dependency) {}]);
 
 })();
-
