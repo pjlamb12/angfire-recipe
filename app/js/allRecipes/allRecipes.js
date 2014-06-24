@@ -111,7 +111,7 @@ angular.module('myApp.allRecipes',
 
 	$scope.deleteRecipe = function (id, name, recipeType){
 		var modalInstance = $modal.open({
-			templateUrl: 'partials/confirmRecipeDelete.html',
+			templateUrl: 'js/allRecipes/confirmRecipeDelete.html',
 			controller: ConfirmDeleteCtrl,
 			resolve: {
 				name: function(){
@@ -128,3 +128,15 @@ angular.module('myApp.allRecipes',
 	};
 
 });
+
+var ConfirmDeleteCtrl = function($scope, $modalInstance, name){
+	$scope.recipeName = name;
+
+	$scope.ok = function(){
+		$modalInstance.close();
+	}
+
+	$scope.cancel = function(){
+		$modalInstance.dismiss('cancel');
+	}
+};
