@@ -9,7 +9,7 @@ var myApp = angular.module('myApp', [
   'myApp.login',
   'myApp.allRecipes',
   'myApp.addRecipe',
-  'myApp.nested',
+  'myApp.recipes',
   'myApp.config',
   'myApp.services',
   'waitForAuth',
