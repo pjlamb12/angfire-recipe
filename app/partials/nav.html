@@ -16,12 +16,6 @@
 			<ul ng-show-auth="login" class="nav navbar-nav">
 				<li ng-class="{active: $state.includes('allRecipes')}"><a ui-sref="allRecipes">All My Recipes</a></li>
 				<li ng-class="{active: $state.includes('addRecipe')}"><a ui-sref="addRecipe">Add Recipe</a></li>
-				<li ng-class="{active: $state.includes('nested')}">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Nested <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a ui-sref="nested.nested1">Nested 1</a></li>
-					</ul>
-				</li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
