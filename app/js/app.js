@@ -27,6 +27,9 @@ myApp.run(['$rootScope', '$state', '$stateParams', 'loginService', 'FBURL',
 	$rootScope.$stateParams = $stateParams;
   $rootScope.FBURL = FBURL;
   $rootScope.auth = loginService.init();
+  $rootScope.$on('$stateChangeSuccess', function(ev, to, toParams, from, fromParams){
+    $rootScope.previousState = from;
+  });
 }]);
 
 myApp.config(function($urlRouterProvider){
@@ -36,9 +39,3 @@ myApp.config(function($urlRouterProvider){
 myApp.controller('mainController', function($scope){
 
 });
-// config(['$routeProvider', function($routeProvider) {
-//   $routeProvider.when('/', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
-//   $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
-//   $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-//   $routeProvider.otherwise({redirectTo: '/'});
-// }]);
