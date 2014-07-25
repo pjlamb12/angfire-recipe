@@ -5,7 +5,6 @@
 var myApp = angular.module('myApp', [
   'ngRoute',
   'ui.router',
-  'myApp.home',
   'myApp.login',
   'myApp.allRecipes',
   'myApp.addRecipe',
@@ -16,10 +15,10 @@ var myApp = angular.module('myApp', [
   'stateSecurity',
   'ui.sortable',
   'ui.bootstrap',
+  'myApp.controllers'
   // 'routeSecurity',
   // 'myApp.filters',
   // 'myApp.directives',
-  // 'myApp.controllers'
 ]);
 
 myApp.run(['$rootScope', '$state', '$stateParams', 'loginService', 'FBURL', 

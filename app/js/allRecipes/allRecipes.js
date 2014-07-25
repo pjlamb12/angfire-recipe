@@ -126,7 +126,6 @@ angular.module('myApp.allRecipes',
 			deleteRef.$remove();
 		});
 	};
-
 });
 
 var ConfirmDeleteCtrl = function($scope, $modalInstance, name){

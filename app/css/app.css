@@ -13,3 +13,7 @@
 .panel-heading{
 	cursor: pointer;
 }
+
+.nav-logout{
+	cursor: pointer;
+}

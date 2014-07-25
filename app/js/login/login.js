@@ -32,7 +32,7 @@ angular.module('myApp.login',
 				$scope.err = err ? err + '' : null;
 				if( !err ){
 					cb && cb(user);
-					$state.go('home');
+					$state.go('allRecipes');
 				}
 			});
 		}
