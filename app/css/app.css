@@ -17,3 +17,7 @@
 .nav-logout{
 	cursor: pointer;
 }
+
+.alerts-section{
+	display: block;
+}

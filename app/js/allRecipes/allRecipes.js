@@ -11,9 +11,10 @@ angular.module('myApp.allRecipes',
 			}
 		});
 })
-.controller('AllRecipesController', function($scope, syncData, $modal, FBURL, Firebase, $firebase){
+.controller('AllRecipesController', function($scope, syncData, $modal, FBURL, Firebase, $firebase, alertService){
 	$scope.curUser = $scope.auth.user;
 	var basePath = 'user-data/' + $scope.curUser.uid + '/recipes/';
+	$scope.alerts = [];
 
 	$scope.appetizerType = 'appetizer';
 	$scope.soupType = 'soup';
@@ -109,6 +110,10 @@ angular.module('myApp.allRecipes',
 			($scope.entreeLength < 1);
 	}
 
+	$scope.deleteAlert = function(){
+		$scope.alerts = alertService.deleteAlert($scope.alerts);
+	}
+
 	$scope.deleteRecipe = function (id, name, recipeType){
 		var modalInstance = $modal.open({
 			templateUrl: 'js/allRecipes/confirmRecipeDelete.html',
@@ -124,6 +129,14 @@ angular.module('myApp.allRecipes',
 			var deletePath = new Firebase(FBURL + basePath + recipeType + '/' + id);
 			var deleteRef = $firebase(deletePath);
 			deleteRef.$remove();
+			var alert = {type: "danger", msg: "You successfully deleted your recipe."};
+			console.log(alert);
+			$scope.alerts = alertService.addAlert(alert);
+			angular.forEach($scope.alerts, function(alert){
+				console.log(alert.type);
+				console.log(alert.msg);
+			});
+			$scope.alerts = alertService.timeDelete($scope.alerts);
 		});
 	};
 });

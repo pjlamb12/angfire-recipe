@@ -2,6 +2,7 @@
 	<h2 class="pull-left">Your Recipe Book</h2>
 	<a ui-sref="addRecipe" class="btn btn-primary pull-right">Add New <b class="glyphicon glyphicon-plus-sign"></b></a>
 </div>
+<alert ng-repeat="alert in alerts" type="alert.type" close="deleteAlert($index)">{{alert.msg}}</alert>
 
 <div class="row">
 	<accordion close-others="true" ng-hide="allEmpty">
