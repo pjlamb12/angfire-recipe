@@ -129,8 +129,7 @@ angular.module('myApp.allRecipes',
 			var deletePath = new Firebase(FBURL + basePath + recipeType + '/' + id);
 			var deleteRef = $firebase(deletePath);
 			deleteRef.$remove();
-			var alert = {type: "danger", msg: "You successfully deleted your recipe."};
-			console.log(alert);
+			var alert = {type: "danger", msg: "You successfully deleted the recipe for: " + name + "."};
 			$scope.alerts = alertService.addAlert(alert);
 			angular.forEach($scope.alerts, function(alert){
 				console.log(alert.type);
