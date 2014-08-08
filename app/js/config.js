@@ -12,7 +12,7 @@ angular.module('myApp.config', [])
 
 	.constant('loginStateName', 'login')
 
-	.constant('alreadyLoggedInStateName', 'home')
+	.constant('alreadyLoggedInStateName', 'allRecipes')
 
 /*********************
  * !!FOR E2E TESTING!!

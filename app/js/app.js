@@ -33,7 +33,7 @@ myApp.run(['$rootScope', '$state', '$stateParams', 'loginService', 'FBURL',
 }]);
 
 myApp.config(function($urlRouterProvider){
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/login');
 });
 
 myApp.controller('mainController', function($scope){
