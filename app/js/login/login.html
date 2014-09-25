@@ -22,7 +22,7 @@
 				<input type="password" class="form-control" id="confirm" placeholder="Enter password..." ng-model="confirm" />
 			</div>
 		</div>
-		<button class="btn btn-primary" ng-click="login()" ng-hide="createMode">Log In</button>
+		<button class="btn btn-primary" ng-click="login(email, pass)" ng-hide="createMode">Log In</button>
 		<button class="btn btn-primary" ng-click="createMode = true" ng-hide="createMode">Register</button>
 		<button class="btn btn-primary" ng-cloak ng-show="createMode" ng-click="createAccount()">Create Account</button>
 		<button class="btn btn-primary" ng-cloak ng-show="createMode" ng-click="createMode = false">Cancel</button>

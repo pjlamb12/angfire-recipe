@@ -3,9 +3,10 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-	.controller('NavCtrl', ['$scope', 'loginService', function($scope, loginService) {
+	.controller('NavCtrl', ['$scope', 'simpleLogin', '$state', function($scope, simpleLogin, $state) {
 		$scope.logout = function(){
-			loginService.logout();
+			simpleLogin.logout();
+			$state.go('login');
 		}
 	}])
 ;
