@@ -13,11 +13,12 @@ angular.module('myApp.allRecipes',
 			},
 		});
 })
-.controller('AllRecipesController', function($scope, syncData, $modal, FBURL, Firebase, $firebase, alertService, $rootScope, user){
+.controller('AllRecipesController', function($scope, $modal, FBURL, Firebase, $firebase, alertService, $rootScope, user, fbutil){
 	if(!user){
 		$state.go('login');
 	} else {
 		$scope.curUser = user;
+		console.log($scope.curUser);
 		var basePath = 'user-data/' + $scope.curUser.uid + '/recipes/';
 		$scope.alerts = [];
 		if($rootScope.previousState.name == 'addRecipe'){
@@ -53,66 +54,68 @@ angular.module('myApp.allRecipes',
 		$scope.drinkLength = 0;
 
 		//get the counts for all the other recipe types
-		$scope.recipeApps = syncData(appetizers, 10).$on('loaded', function(snap){
-			var count = 0;
-			angular.forEach(snap, function(item){
-				if(item != null || item.value != null){
-					count++;
-				};
-			});
-			$scope.appetizerLength = count;
-			checkEmpty();
-		}).$on('child_added', function(snap){ $scope.appetizerLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.appetizerLength--;  checkEmpty();});
-		$scope.recipeSoups = syncData(soups, 10).$on('loaded', function(snap){
-			var count = 0;
-			angular.forEach(snap, function(item){
-				if(item != null || item.value != null){
-					count++;
-				};
-			});
-			$scope.soupLength = count;
-			checkEmpty();
-		}).$on('child_added', function(snap){ $scope.soupLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.soupLength--;  checkEmpty();});
-		$scope.recipeSalads = syncData(salads, 10).$on('loaded', function(snap){
-			var count = 0;
-			angular.forEach(snap, function(item){
-				if(item != null || item.value != null){
-					count++;
-				};
-			});
-			$scope.saladLength = count;
-			checkEmpty();
-		}).$on('child_added', function(snap){ $scope.saladLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.saladLength--;  checkEmpty();});
-		$scope.recipeEntrees = syncData(entrees, 10).$on('loaded', function(snap){
-			var count = 0;
-			angular.forEach(snap, function(item){
-				if(item != null || item.value != null){
-					count++;
-				};
-			});
-			$scope.entreeLength = count;
-			checkEmpty();
-		}).$on('child_added', function(snap){ $scope.entreeLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.entreeLength--;  checkEmpty();});
-		$scope.recipeDesserts = syncData(desserts, 10).$on('loaded', function(snap){
-			var count = 0;
-			angular.forEach(snap, function(item){
-				if(item != null || item.value != null){
-					count++;
-				};
-			});
-			$scope.dessertLength = count;
-			checkEmpty();
-		}).$on('child_added', function(snap){ $scope.dessertLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.dessertLength--; checkEmpty();});
-		$scope.recipeDrinks = syncData(drinks, 10).$on('loaded', function(snap){
-			var count = 0;
-			angular.forEach(snap, function(item){
-				if(item != null || item.value != null){
-					count++;
-				};
-			});
-			$scope.drinkLength = count;
-			checkEmpty();
-		}).$on('child_added', function(snap){ $scope.drinkLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.drinkLength--;  checkEmpty();});
+		$scope.recipeApps = fbutil.syncArray(appetizers, {limit: 10, endAt: null});;
+		console.log($scope.recipeApps);
+		// fbutil.syncArray(appetizers, 10).$on('loaded', function(snap){
+		// 	var count = 0;
+		// 	angular.forEach(snap, function(item){
+		// 		if(item != null || item.value != null){
+		// 			count++;
+		// 		};
+		// 	});
+		// 	$scope.appetizerLength = count;
+		// 	checkEmpty();
+		// }).$on('child_added', function(snap){ $scope.appetizerLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.appetizerLength--;  checkEmpty();});
+		// $scope.recipeSoups = syncArray(soups, 10).$on('loaded', function(snap){
+		// 	var count = 0;
+		// 	angular.forEach(snap, function(item){
+		// 		if(item != null || item.value != null){
+		// 			count++;
+		// 		};
+		// 	});
+		// 	$scope.soupLength = count;
+		// 	checkEmpty();
+		// }).$on('child_added', function(snap){ $scope.soupLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.soupLength--;  checkEmpty();});
+		// $scope.recipeSalads = syncArray(salads, 10).$on('loaded', function(snap){
+		// 	var count = 0;
+		// 	angular.forEach(snap, function(item){
+		// 		if(item != null || item.value != null){
+		// 			count++;
+		// 		};
+		// 	});
+		// 	$scope.saladLength = count;
+		// 	checkEmpty();
+		// }).$on('child_added', function(snap){ $scope.saladLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.saladLength--;  checkEmpty();});
+		// $scope.recipeEntrees = syncArray(entrees, 10).$on('loaded', function(snap){
+		// 	var count = 0;
+		// 	angular.forEach(snap, function(item){
+		// 		if(item != null || item.value != null){
+		// 			count++;
+		// 		};
+		// 	});
+		// 	$scope.entreeLength = count;
+		// 	checkEmpty();
+		// }).$on('child_added', function(snap){ $scope.entreeLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.entreeLength--;  checkEmpty();});
+		// $scope.recipeDesserts = syncArray(desserts, 10).$on('loaded', function(snap){
+		// 	var count = 0;
+		// 	angular.forEach(snap, function(item){
+		// 		if(item != null || item.value != null){
+		// 			count++;
+		// 		};
+		// 	});
+		// 	$scope.dessertLength = count;
+		// 	checkEmpty();
+		// }).$on('child_added', function(snap){ $scope.dessertLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.dessertLength--; checkEmpty();});
+		// $scope.recipeDrinks = syncArray(drinks, 10).$on('loaded', function(snap){
+		// 	var count = 0;
+		// 	angular.forEach(snap, function(item){
+		// 		if(item != null || item.value != null){
+		// 			count++;
+		// 		};
+		// 	});
+		// 	$scope.drinkLength = count;
+		// 	checkEmpty();
+		// }).$on('child_added', function(snap){ $scope.drinkLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.drinkLength--;  checkEmpty();});
 
 		//Fix this
 		var checkEmpty = function(){

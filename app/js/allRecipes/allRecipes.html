@@ -9,7 +9,7 @@
 		<accordion-group is-open="appetizer.open" ng-click="appetizer.open = !appetizer.open" ng-show="appetizerLength > 0">
 			<accordion-heading><span ng-click="appetizer.open = !appetizer.open">Appetizers</span></accordion-heading>
 			<div class="list-group" id="recipeApps">
-				<p class="input-group clearfix" ng-repeat="rec in recipeApps | orderByPriority">
+				<p class="input-group clearfix" ng-repeat="rec in recipeApps track by $index">
 					<span class="form-control"><a ui-sref="recipes.details({recipeId: rec.$id, recipeType: '{{appetizerType}}' })">{{rec.name}}</a></span>
 					<span class="input-group-btn">
 						<a class="btn btn-primary" ui-sref="recipes.edit({recipeId: rec.$id, recipeType: '{{appetizerType}}' })">
@@ -25,7 +25,7 @@
 		<accordion-group is-open="soup.open" ng-click="soup.open = !soup.open" ng-show="soupLength > 0">
 			<accordion-heading><span ng-click="soup.open = !soup.open">Soups</span></accordion-heading>
 			<div class="list-group" id="recipeSoups">
-				<p class="input-group clearfix" ng-repeat="rec in recipeSoups | orderByPriority">
+				<p class="input-group clearfix" ng-repeat="rec in recipeSoups ">
 					<span class="form-control"><a ui-sref="recipes.details({recipeId: rec.$id, recipeType: '{{soupType}}' })">{{rec.name}}</a></span>
 					<span class="input-group-btn">
 						<a class="btn btn-primary" ui-sref="recipes.edit({recipeId: rec.$id, recipeType: '{{soupType}}' })">
@@ -41,7 +41,7 @@
 		<accordion-group is-open="salad.open" ng-click="salad.open = !salad.open" ng-show="saladLength > 0">
 			<accordion-heading><span ng-click="salad.open = !salad.open">Salads</span></accordion-heading>
 			<div class="list-group" id="recipeSalads">
-				<p class="input-group clearfix" ng-repeat="rec in recipeSalads | orderByPriority">
+				<p class="input-group clearfix" ng-repeat="rec in recipeSalads ">
 					<span class="form-control"><a ui-sref="recipes.details({recipeId: rec.$id, recipeType: '{{saladType}}' })">{{rec.name}}</a></span>
 					<span class="input-group-btn">
 						<a class="btn btn-primary" ui-sref="recipes.edit({recipeId: rec.$id, recipeType: '{{saladType}}' })">
@@ -57,7 +57,7 @@
 		<accordion-group is-open="entree.open" ng-click="entree.open = !entree.open" ng-show="entreeLength > 0">
 			<accordion-heading><span ng-click="entree.open = !entree.open">Entrees</span></accordion-heading>
 			<div class="list-group" id="recipeEntrees">
-				<p class="input-group clearfix" ng-repeat="rec in recipeEntrees | orderByPriority">
+				<p class="input-group clearfix" ng-repeat="rec in recipeEntrees ">
 					<span class="form-control"><a ui-sref="recipes.details({recipeId: rec.$id, recipeType: '{{entreeType}}' })">{{rec.name}}</a></span>
 					<span class="input-group-btn">
 						<a class="btn btn-primary" ui-sref="recipes.edit({recipeId: rec.$id, recipeType: '{{entreeType}}' })">
@@ -73,7 +73,7 @@
 		<accordion-group is-open="dessert.open" ng-click="dessert.open = !dessert.open" ng-show="dessertLength > 0">
 			<accordion-heading><span ng-click="dessert.open = !dessert.open">Desserts</span></accordion-heading>
 			<div class="list-group" id="recipeDesserts">
-				<p class="input-group clearfix" ng-repeat="rec in recipeDesserts | orderByPriority">
+				<p class="input-group clearfix" ng-repeat="rec in recipeDesserts ">
 					<span class="form-control"><a ui-sref="recipes.details({recipeId: rec.$id, recipeType: '{{dessertType}}' })">{{rec.name}}</a></span>
 					<span class="input-group-btn">
 						<a class="btn btn-primary" href="#/myRecipes/edit/{{dessertType}}/{{rec.$id}}">
@@ -89,7 +89,7 @@
 		<accordion-group is-open="drink.open" ng-click="drink.open = !drink.open" ng-show="drinkLength > 0">
 			<accordion-heading><span ng-click="drink.open = !drink.open">Drinks</span></accordion-heading>
 			<div class="list-group" id="recipeDrinks">
-				<p class="input-group clearfix" ng-repeat="rec in recipeDrinks | orderByPriority">
+				<p class="input-group clearfix" ng-repeat="rec in recipeDrinks ">
 					<span class="form-control"><a ui-sref="recipes.details({recipeId: rec.$id, recipeType: '{{drinkType}}' })">{{rec.name}}</a></span>
 					<span class="input-group-btn">
 						<a class="btn btn-primary" ui-sref="recipes.edit({recipeId: rec.$id, recipeType: '{{drinkType}}' })">
