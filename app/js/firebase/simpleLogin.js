@@ -1,4 +1,3 @@
-
 angular.module('simpleLogin', ['firebase', 'firebase.utils', 'changeEmail'])
 
   // a simple wrapper on simpleLogin.getUser() that rejects the promise
@@ -13,16 +12,7 @@ angular.module('simpleLogin', ['firebase', 'firebase.utils', 'changeEmail'])
 
   .factory('simpleLogin', ['$firebaseSimpleLogin', 'fbutil', 'createProfile', 'changeEmail', '$q', '$rootScope',
     function($firebaseSimpleLogin, fbutil, createProfile, changeEmail, $q, $rootScope) {
-      var isLoggedIn = false;
-      var auth = $firebaseSimpleLogin(fbutil.ref(), function(err, user){
-        if(err){
-          isLoggedIn = false;
-        } else if(user){
-          isLoggedIn = true;
-        } else {
-          isLoggedIn = false;
-        }
-      });
+      var auth = $firebaseSimpleLogin(fbutil.ref());
       var listeners = [];
 
       function statusChange() {
@@ -37,10 +27,6 @@ angular.module('simpleLogin', ['firebase', 'firebase.utils', 'changeEmail'])
       var fns = {
         user: null,
 
-        isAuthenticated: function(){
-          return isLoggedIn;
-        },
-
         getUser: function() {
           return auth.$getCurrentUser();
         },
@@ -51,7 +37,6 @@ angular.module('simpleLogin', ['firebase', 'firebase.utils', 'changeEmail'])
          * @returns {*}
          */
         login: function(email, pass) {
-          isLoggedIn = true;
           return auth.$login('password', {
             email: email,
             password: pass,
@@ -60,7 +45,6 @@ angular.module('simpleLogin', ['firebase', 'firebase.utils', 'changeEmail'])
         },
 
         logout: function() {
-          isLoggedIn = false;
           auth.$logout();
         },
 
