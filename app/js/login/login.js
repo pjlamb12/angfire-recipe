@@ -14,7 +14,6 @@ angular.module('myApp.login',
 		});
 })
 .controller('LoginController', function($scope, $state, user, simpleLogin){
-	console.log("Login Controller")
 	if(user){
 		$state.go('allRecipes');
 	}
