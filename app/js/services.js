@@ -45,8 +45,10 @@
 			}
 
 		})
-		.factory('appetizers', ['fbutil', function(fbutil){
-			return fbutil.syncArray('/user-data/simplelogin%3A1/recipes/appetizer')
+		.service('recipeList', ['fbutil', function(fbutil){
+			this.getRecipeList = function(userId, type){
+				return fbutil.syncArray('user-data/' + userId + '/recipes/' + type);
+			}
 		}])
 
 })();

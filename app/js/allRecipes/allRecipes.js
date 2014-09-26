@@ -13,7 +13,7 @@ angular.module('myApp.allRecipes',
 			},
 		});
 })
-.controller('AllRecipesController', function($scope, $modal, FBURL, Firebase, $firebase, alertService, $rootScope, user, fbutil){
+.controller('AllRecipesController', function($scope, $modal, FBURL, Firebase, $firebase, alertService, $rootScope, user, recipeList){
 	$scope.curUser = user;
 	console.log($scope.curUser);
 	var basePath = 'user-data/' + $scope.curUser.uid + '/recipes/';
@@ -51,11 +51,8 @@ angular.module('myApp.allRecipes',
 	$scope.drinkLength = 0;
 
 	//get the counts for all the other recipe types
-	$scope.recipeApps = fbutil.syncArray(appetizers, {limit: 10, endAt: null});;
+	$scope.recipeApps = recipeList.getRecipeList(user.uid, $scope.appetizerType);
 	console.log($scope.recipeApps);
-	for(r in $scope.recipeApps){
-		console.log(r);
-	}
 	// fbutil.syncArray(appetizers, 10).$on('loaded', function(snap){
 	// 	var count = 0;
 	// 	angular.forEach(snap, function(item){
