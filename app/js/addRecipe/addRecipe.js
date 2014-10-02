@@ -11,14 +11,13 @@ angular.module('myApp.addRecipe',
 			}
 		});
 })
-.controller('AddRecipeController', function($scope, $state, syncDataLimit){
+.controller('AddRecipeController', function($scope, $state){
 	$scope.newRecipe = {name: "", ingredients: [], directions: []};
 	$scope.ingredients = [];
 	$scope.ingrText = "";
 	$scope.directionText = "";
 	$scope.directions = [];
 	$scope.name = "";
-	$scope.curUser = $scope.auth.user;
 	$scope.recipeType = "";
 
 	$scope.addIngredient = function(){
@@ -46,9 +45,6 @@ angular.module('myApp.addRecipe',
 	// add new recipes to the list
 	$scope.saveRecipe = function() {
 		if( $scope.name !== "" && ($scope.ingredients.length > 0 || $scope.directions.length > 0) && $scope.recipeType != "") {
-			var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $scope.recipeType;
-			$scope.recipes = syncDataLimit(path, 10);
-
 			var recipe = $scope.newRecipe;
 			recipe.ingredients = $scope.ingredients;
 			recipe.directions = $scope.directions;
