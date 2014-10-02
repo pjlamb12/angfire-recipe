@@ -9,7 +9,7 @@
 				<a class="btn btn-primary" ui-sref="recipes.edit({recipeId: rec.$id, recipeType: '{{ngModel.type}}' })">
 					<span class="glyphicon glyphicon-pencil"></span>
 				</a>
-				<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name, ngModel.type)">
+				<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec, rec.name, ngModel.type)">
 					<span class="glyphicon glyphicon-trash"></span>
 				</button>
 			</span>

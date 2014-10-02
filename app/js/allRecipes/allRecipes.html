@@ -5,12 +5,12 @@
 <alert ng-repeat="alert in alerts" type="alert.type" close="deleteAlert($index)">{{alert.msg}}</alert>
 
 <div class="row">
-	<div recipe-list ng-model="appetizerList"></div>
-	<div recipe-list ng-model="soupList"></div>
-	<div recipe-list ng-model="saladList"></div>
-	<div recipe-list ng-model="entreeList"></div>
-	<div recipe-list ng-model="dessertList"></div>
-	<div recipe-list ng-model="drinkList"></div>
+	<div recipe-list ng-model="appetizerList" alert-list="alerts"></div>
+	<div recipe-list ng-model="soupList" alert-list="alerts"></div>
+	<div recipe-list ng-model="saladList" alert-list="alerts"></div>
+	<div recipe-list ng-model="entreeList" alert-list="alerts"></div>
+	<div recipe-list ng-model="dessertList" alert-list="alerts"></div>
+	<div recipe-list ng-model="drinkList" alert-list="alerts"></div>
 </div>
 
 <p ng-show="allEmpty">

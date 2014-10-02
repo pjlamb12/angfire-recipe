@@ -5,10 +5,11 @@ angular.module('myApp.allRecipes.directives', ['myApp'])
 		require: '^ngModel',
 		scope: {
 			ngModel: '=',
+			alertList: '='
 		},
 		templateUrl: 'js/allRecipes/recipeList.html',
-		controller: function($scope, $modal){
-			$scope.deleteRecipe = function(id, name, type){
+		controller: function($scope, $modal, alertService){
+			$scope.deleteRecipe = function(item, name, type){
 				var modalInstance = $modal.open({
 					templateUrl: 'js/allRecipes/confirmRecipeDelete.html',
 					controller: ConfirmDeleteCtrl,
@@ -20,13 +21,10 @@ angular.module('myApp.allRecipes.directives', ['myApp'])
 				});
 
 				modalInstance.result.then(function(){
-					// var deletePath = new Firebase(FBURL + basePath + recipeType + '/' + id);
-					// var deleteRef = $firebase(deletePath);
-					// deleteRef.$remove();
-					// var alert = {type: "danger", msg: "You successfully deleted the recipe for: " + name + "."};
-					// $scope.alerts = alertService.addAlert(alert);
-					// $scope.alerts = alertService.timeDelete($scope.alerts);
-					console.log("ngModel List in modalInstance.then: ", ngModel);
+					var alert = {type: "danger", msg: "You successfully deleted your " + name + " recipe."};
+					$scope.alertList = alertService.addAlert(alert);
+					$scope.alertList = alertService.timeDelete($scope.alertList);
+					$scope.ngModel.$remove(item);
 				});
 			}
 		}
