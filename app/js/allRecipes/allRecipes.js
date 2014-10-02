@@ -28,91 +28,37 @@ angular.module('myApp.allRecipes',
 		$scope.alerts = alertService.timeDelete($scope.alerts);
 	}
 
-	$scope.appetizerType = 'appetizer';
-	$scope.soupType = 'soup';
-	$scope.saladType = 'salad';
-	$scope.entreeType = 'entree';
-	$scope.dessertType = 'dessert';
-	$scope.drinkType = 'drink';
-
-	var appetizers = basePath + $scope.appetizerType;
-	var soups = basePath + $scope.soupType;
-	var salads = basePath + $scope.saladType;
-	var entrees = basePath + $scope.entreeType;
-	var desserts = basePath + $scope.dessertType;
-	var drinks = basePath + $scope.drinkType;
-
-
-	$scope.appetizerLength = 0;
-	$scope.soupLength = 0;
-	$scope.saladLength = 0;
-	$scope.entreeLength = 0;
-	$scope.dessertLength = 0;
-	$scope.drinkLength = 0;
+	var appetizerType = 'appetizer';
+	var soupType = 'soup';
+	var saladType = 'salad';
+	var entreeType = 'entree';
+	var dessertType = 'dessert';
+	var drinkType = 'drink';
 
 	//get the counts for all the other recipe types
-	$scope.recipeApps = recipeList.getRecipeList(user.uid, $scope.appetizerType);
-	console.log($scope.recipeApps);
-	// fbutil.syncArray(appetizers, 10).$on('loaded', function(snap){
-	// 	var count = 0;
-	// 	angular.forEach(snap, function(item){
-	// 		if(item != null || item.value != null){
-	// 			count++;
-	// 		};
-	// 	});
-	// 	$scope.appetizerLength = count;
-	// 	checkEmpty();
-	// }).$on('child_added', function(snap){ $scope.appetizerLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.appetizerLength--;  checkEmpty();});
-	// $scope.recipeSoups = syncArray(soups, 10).$on('loaded', function(snap){
-	// 	var count = 0;
-	// 	angular.forEach(snap, function(item){
-	// 		if(item != null || item.value != null){
-	// 			count++;
-	// 		};
-	// 	});
-	// 	$scope.soupLength = count;
-	// 	checkEmpty();
-	// }).$on('child_added', function(snap){ $scope.soupLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.soupLength--;  checkEmpty();});
-	// $scope.recipeSalads = syncArray(salads, 10).$on('loaded', function(snap){
-	// 	var count = 0;
-	// 	angular.forEach(snap, function(item){
-	// 		if(item != null || item.value != null){
-	// 			count++;
-	// 		};
-	// 	});
-	// 	$scope.saladLength = count;
-	// 	checkEmpty();
-	// }).$on('child_added', function(snap){ $scope.saladLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.saladLength--;  checkEmpty();});
-	// $scope.recipeEntrees = syncArray(entrees, 10).$on('loaded', function(snap){
-	// 	var count = 0;
-	// 	angular.forEach(snap, function(item){
-	// 		if(item != null || item.value != null){
-	// 			count++;
-	// 		};
-	// 	});
-	// 	$scope.entreeLength = count;
-	// 	checkEmpty();
-	// }).$on('child_added', function(snap){ $scope.entreeLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.entreeLength--;  checkEmpty();});
-	// $scope.recipeDesserts = syncArray(desserts, 10).$on('loaded', function(snap){
-	// 	var count = 0;
-	// 	angular.forEach(snap, function(item){
-	// 		if(item != null || item.value != null){
-	// 			count++;
-	// 		};
-	// 	});
-	// 	$scope.dessertLength = count;
-	// 	checkEmpty();
-	// }).$on('child_added', function(snap){ $scope.dessertLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.dessertLength--; checkEmpty();});
-	// $scope.recipeDrinks = syncArray(drinks, 10).$on('loaded', function(snap){
-	// 	var count = 0;
-	// 	angular.forEach(snap, function(item){
-	// 		if(item != null || item.value != null){
-	// 			count++;
-	// 		};
-	// 	});
-	// 	$scope.drinkLength = count;
-	// 	checkEmpty();
-	// }).$on('child_added', function(snap){ $scope.drinkLength++; checkEmpty();}).$on('child_removed', function(snap){ $scope.drinkLength--;  checkEmpty();});
+	$scope.appetizerList = recipeList.getRecipeList(user.uid, appetizerType);
+	$scope.appetizerList.typeDisplay = 'Appetizers';
+	$scope.appetizerList.type = appetizerType;
+
+	$scope.soupList = recipeList.getRecipeList(user.uid, soupType);
+	$scope.soupList.typeDisplay = 'Soups';
+	$scope.soupList.type = soupType;
+
+	$scope.saladList = recipeList.getRecipeList(user.uid, saladType);
+	$scope.saladList.typeDisplay = 'Salads';
+	$scope.saladList.type = saladType;
+
+	$scope.entreeList = recipeList.getRecipeList(user.uid, entreeType);
+	$scope.entreeList.typeDisplay = 'Entrees';
+	$scope.entreeList.type = entreeType;
+
+	$scope.dessertList = recipeList.getRecipeList(user.uid, dessertType);
+	$scope.dessertList.typeDisplay = 'Desserts';
+	$scope.dessertList.type = dessertType;
+
+	$scope.drinkList = recipeList.getRecipeList(user.uid, drinkType);
+	$scope.drinkList.typeDisplay = 'Drinks';
+	$scope.drinkList.type = drinkType;
 
 	//Fix this
 	var checkEmpty = function(){

@@ -1,0 +1,18 @@
+<div ng-show="ngModel.length">
+	<div>
+		<h4>{{ngModel.typeDisplay}}</h4>
+	</div>
+	<div class="list-group" id="{{ngModel.type}}-list">
+		<p class="input-group clearfix" ng-repeat="rec in ngModel">
+			<span class="form-control"><a ui-sref="recipes.details({recipeId: rec.$id, recipeType: '{{ngModel.type}}' })">{{rec.name}}</a></span>
+			<span class="input-group-btn">
+				<a class="btn btn-primary" ui-sref="recipes.edit({recipeId: rec.$id, recipeType: '{{ngModel.type}}' })">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</a>
+				<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec.$id, rec.name, ngModel.type)">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>
+			</span>
+		</p>
+	</div>
+</div>

@@ -7,6 +7,7 @@ var myApp = angular.module('myApp', [
 	'simpleLogin',
 	'myApp.login',
 	'myApp.allRecipes',
+	'myApp.allRecipes.directives',
 	'myApp.addRecipe',
 	'myApp.recipes',
 	'myApp.config',
@@ -28,9 +29,16 @@ myApp.run(['$rootScope', '$state', '$stateParams', '$location', 'FBURL', 'simple
 	});
 	$rootScope.$on('$stateChangeStart', function(ev, to, toParams, from, fromParams){
 		if(!simpleLogin.isAuthenticated()){
-			if(to.url !== '/login'){
+			simpleLogin.login('test@test.com', 'test');
+				$state.go('allRecipes');
+			// if(to.url !== '/login'){
+			// 	ev.preventDefault();
+			// 	$state.go('login');
+			// }
+		} else {
+			if(to.url === '/login') {
 				ev.preventDefault();
-				$state.go('login');
+				$state.go('allRecipes');
 			}
 		}
 	});

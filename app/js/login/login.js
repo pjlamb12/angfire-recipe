@@ -6,17 +6,9 @@ angular.module('myApp.login',
 			url: '/login',
 			templateUrl: 'js/login/login.html',
 			controller: 'LoginController',
-			resolve: {
-				user: ['simpleLogin', function(simpleLogin) {
-					return simpleLogin.getUser();
-				}]
-			},
 		});
 })
-.controller('LoginController', function($scope, $state, user, simpleLogin){
-	if(user){
-		$state.go('allRecipes');
-	}
+.controller('LoginController', function($scope, $state, simpleLogin){
 	$scope.email = null;
 	$scope.pass = null;
 	$scope.confirm = null;
