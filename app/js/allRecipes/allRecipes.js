@@ -86,12 +86,13 @@ angular.module('myApp.allRecipes',
 		});
 
 		modalInstance.result.then(function(){
-			var deletePath = new Firebase(FBURL + basePath + recipeType + '/' + id);
-			var deleteRef = $firebase(deletePath);
-			deleteRef.$remove();
-			var alert = {type: "danger", msg: "You successfully deleted the recipe for: " + name + "."};
-			$scope.alerts = alertService.addAlert(alert);
-			$scope.alerts = alertService.timeDelete($scope.alerts);
+			// var deletePath = new Firebase(FBURL + basePath + recipeType + '/' + id);
+			// var deleteRef = $firebase(deletePath);
+			// deleteRef.$remove();
+			// var alert = {type: "danger", msg: "You successfully deleted the recipe for: " + name + "."};
+			// $scope.alerts = alertService.addAlert(alert);
+			// $scope.alerts = alertService.timeDelete($scope.alerts);
+			console.log("Appetizer List in modalInstance.then: ", $scope.appetizerList);
 		});
 	};
 
