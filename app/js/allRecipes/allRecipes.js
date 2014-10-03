@@ -15,7 +15,6 @@ angular.module('myApp.allRecipes',
 })
 .controller('AllRecipesController', function($scope, $modal, FBURL, Firebase, $firebase, alertService, $rootScope, user, recipeList){
 	$scope.curUser = user;
-	console.log($scope.curUser);
 	var basePath = 'user-data/' + $scope.curUser.uid + '/recipes/';
 	$scope.alerts = [];
 	if($rootScope.previousState.name == 'addRecipe'){
@@ -73,28 +72,6 @@ angular.module('myApp.allRecipes',
 	$scope.deleteAlert = function(){
 		$scope.alerts = alertService.deleteAlert($scope.alerts);
 	}
-
-	$scope.deleteRecipe = function (id, name, recipeType){
-		var modalInstance = $modal.open({
-			templateUrl: 'js/allRecipes/confirmRecipeDelete.html',
-			controller: ConfirmDeleteCtrl,
-			resolve: {
-				name: function(){
-					return name;
-				}
-			}
-		});
-
-		modalInstance.result.then(function(){
-			// var deletePath = new Firebase(FBURL + basePath + recipeType + '/' + id);
-			// var deleteRef = $firebase(deletePath);
-			// deleteRef.$remove();
-			// var alert = {type: "danger", msg: "You successfully deleted the recipe for: " + name + "."};
-			// $scope.alerts = alertService.addAlert(alert);
-			// $scope.alerts = alertService.timeDelete($scope.alerts);
-			console.log("Appetizer List in modalInstance.then: ", $scope.appetizerList);
-		});
-	};
 
 });
 
