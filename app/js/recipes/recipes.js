@@ -10,8 +10,10 @@ angular.module('myApp.recipes',
 			abstract: true,
 			url: '/recipes',
 			templateUrl: 'js/recipes/recipes.html',
-			data: {
-				authRequired: true
+			resolve: {
+				user: function(simpleLogin, $stateParams){
+					return simpleLogin.getUser();
+				}
 			}
 		});
 });

@@ -13,9 +13,8 @@ angular.module('myApp.allRecipes',
 			},
 		});
 })
-.controller('AllRecipesController', function($scope, $modal, FBURL, Firebase, $firebase, alertService, $rootScope, user, recipeList){
-	$scope.curUser = user;
-	var basePath = 'user-data/' + $scope.curUser.uid + '/recipes/';
+.controller('AllRecipesController', function($scope, $modal, alertService, $rootScope, user, recipeService){
+
 	$scope.alerts = [];
 	if($rootScope.previousState.name == 'addRecipe'){
 		var alert = {type: "success", msg: "You successfully added a new recipe!"};
@@ -27,47 +26,8 @@ angular.module('myApp.allRecipes',
 		$scope.alerts = alertService.timeDelete($scope.alerts);
 	}
 
-	var appetizerType = 'appetizer';
-	var soupType = 'soup';
-	var saladType = 'salad';
-	var entreeType = 'entree';
-	var dessertType = 'dessert';
-	var drinkType = 'drink';
-
 	//get the counts for all the other recipe types
-	$scope.appetizerList = recipeList.getRecipeList(user.uid, appetizerType);
-	$scope.appetizerList.typeDisplay = 'Appetizers';
-	$scope.appetizerList.type = appetizerType;
-
-	$scope.soupList = recipeList.getRecipeList(user.uid, soupType);
-	$scope.soupList.typeDisplay = 'Soups';
-	$scope.soupList.type = soupType;
-
-	$scope.saladList = recipeList.getRecipeList(user.uid, saladType);
-	$scope.saladList.typeDisplay = 'Salads';
-	$scope.saladList.type = saladType;
-
-	$scope.entreeList = recipeList.getRecipeList(user.uid, entreeType);
-	$scope.entreeList.typeDisplay = 'Entrees';
-	$scope.entreeList.type = entreeType;
-
-	$scope.dessertList = recipeList.getRecipeList(user.uid, dessertType);
-	$scope.dessertList.typeDisplay = 'Desserts';
-	$scope.dessertList.type = dessertType;
-
-	$scope.drinkList = recipeList.getRecipeList(user.uid, drinkType);
-	$scope.drinkList.typeDisplay = 'Drinks';
-	$scope.drinkList.type = drinkType;
-
-	//Fix this
-	var checkEmpty = function(){
-		$scope.allEmpty = ($scope.dessertLength < 1) && 
-			($scope.drinkLength < 1) &&
-			($scope.appetizerLength < 1) &&
-			($scope.soupLength < 1) &&
-			($scope.saladLength < 1) &&
-			($scope.entreeLength < 1);
-	}
+	$scope.recipes = recipeService.getRecipeList(user.uid);
 
 	$scope.deleteAlert = function(){
 		$scope.alerts = alertService.deleteAlert($scope.alerts);

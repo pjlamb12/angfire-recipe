@@ -45,9 +45,12 @@
 			}
 
 		})
-		.service('recipeList', ['fbutil', function(fbutil){
-			this.getRecipeList = function(userId, type){
-				return fbutil.syncArray('user-data/' + userId + '/recipes/' + type);
+		.service('recipeService', ['fbutil', function(fbutil){
+			this.getRecipeList = function(userId){
+				return fbutil.syncArray('users/' + userId + '/recipes');
+			}
+			this.getRecipe = function(userId, recipe){
+				return fbutil.syncObject(['users/' + userId + '/recipes', recipe]);
 			}
 		}])
 

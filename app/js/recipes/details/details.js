@@ -5,16 +5,16 @@ angular.module('myApp.recipes.details',
 .config(function($stateProvider){
 	$stateProvider
 		.state('recipes.details',{
-			url: '/details/:recipeType/:recipeId',
+			url: '/details/:recipeId',
 			templateUrl: 'js/recipes/details/details.html',
-			controller: 'DetailsController'
+			controller: 'DetailsController',
+			resolve: {
+				recipe: function(recipeService, $stateParams){
+					return recipeService.getRecipe(user.uid, $stateParams.recipeId)
+				}
+			}
 		});
 })
-.controller('DetailsController', function($scope, syncData, $stateParams){
-	$scope.curUser = $scope.auth.user;
-	$scope.recipeType = $stateParams.recipeType;
-	$scope.recipeId = $stateParams.recipeId;
-	console.log("recipe id: ", $scope.recipeId);
-	var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $scope.recipeType + '/' + $scope.recipeId;
-	$scope.recipe = syncData(path);
+.controller('DetailsController', function($scope){
+
 });

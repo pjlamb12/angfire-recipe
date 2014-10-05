@@ -1,18 +1,26 @@
-<div ng-show="ngModel.length">
-	<div>
-		<h4>{{ngModel.typeDisplay}}</h4>
-	</div>
-	<div class="list-group" id="{{ngModel.type}}-list">
-		<p class="input-group clearfix" ng-repeat="rec in ngModel">
-			<span class="form-control"><a ui-sref="recipes.details({recipeId: rec.$id, recipeType: '{{ngModel.type}}' })">{{rec.name}}</a></span>
-			<span class="input-group-btn">
-				<a class="btn btn-primary" ui-sref="recipes.edit({recipeId: rec.$id, recipeType: '{{ngModel.type}}' })">
-					<span class="glyphicon glyphicon-pencil"></span>
-				</a>
-				<button type="button" class="btn btn-danger" ng-click="deleteRecipe(rec, rec.name, ngModel.type)">
-					<span class="glyphicon glyphicon-trash"></span>
-				</button>
-			</span>
-		</p>
-	</div>
+<div ng-show="ngModel.length" class="table-responsive">
+	<table class="table table-hover table-bordered table-condensed">
+		<thead>
+			<td>Recipe Name</td>
+			<td>Recipe Category</td>
+			<td>Edit</td>
+			<td>Delete</td>
+		</thead>
+		<tbody>
+			<tr ng-repeat="rec in ngModel">
+				<td><a ui-sref="recipes.details({recipeId: rec.$id})">{{rec.name}}</a></td>
+				<td>{{rec.type}}</td>
+				<td>
+					<a class="btn btn-xs btn-primary" ui-sref="addRecipe">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</a>
+				</td>
+				<td>
+					<button type="button" class="btn btn-xs btn-danger" ng-click="deleteRecipe(rec, rec.name)">
+						<span class="glyphicon glyphicon-trash"></span>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>

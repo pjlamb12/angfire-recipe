@@ -5,19 +5,20 @@ angular.module('myApp.recipes.edit',
 .config(function($stateProvider){
 	$stateProvider
 		.state('recipes.edit',{
-			url: '/edit/:recipeType/:recipeId',
+			url: '/edit/:recipe',
 			templateUrl: 'js/recipes/edit/edit.html',
-			controller: 'EditController'
+			controller: 'EditController',
+			resolve: {
+				recipe: function(user, $stateParams, recipeService){
+					return recipeService.getRecipe(user.uid, stateParams.recipe);
+				}
+			}
 		});
 })
-.controller('EditController', function($scope, syncData, $stateParams, $state){
-	$scope.curUser = $scope.auth.user;
+.controller('EditController', function($scope, $stateParams, $state, recipe, user){
+	$scope.editing = recipe;
+	console.log($scope.editing);
 	$scope.newRecipe = {ingredients: null, directions: null, name: ''};
-	var path = 'user-data/' + $scope.curUser.uid + '/recipes/' + $stateParams.recipeType + '/' + $stateParams.recipeId;
-	$scope.recipe = syncData(path);
-	$scope.ingredients = $scope.recipe.ingredients;
-	$scope.directions = $scope.recipe.directions;
-	$scope.name = $scope.recipe.name;
 
 	$scope.addIngredient = function(){
 		if( $scope.ingrText !== ""){

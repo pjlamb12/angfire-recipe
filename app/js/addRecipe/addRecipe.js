@@ -13,7 +13,7 @@ angular.module('myApp.addRecipe',
 			},
 		});
 })
-.controller('AddRecipeController', function($scope, $state, user, recipeList){
+.controller('AddRecipeController', function($scope, $state, user, recipeService){
 	$scope.recipe = {name: "", ingredients: [], directions: [], type: ""};
 	$scope.ingrText = "";
 	$scope.directionText = "";
@@ -43,7 +43,7 @@ angular.module('myApp.addRecipe',
 	// add new recipes to the list
 	$scope.saveRecipe = function() {
 		if( $scope.recipe.name !== "" && ($scope.recipe.ingredients.length > 0 || $scope.recipe.directions.length > 0) && $scope.recipe.type != "") {
-			var recipes = recipeList.getRecipeList(user.uid, $scope.recipe.type);
+			var recipes = recipeService.getRecipeList(user.uid);
 			recipes.$add($scope.recipe);
 			$state.go('allRecipes');
 		}
