@@ -1,5 +1,5 @@
 <div class="row page-header">
-	<h2>Edit Recipe</h2>
+	<h2>Editing Recipe</h2>
 </div>
 
 <div class="row">
@@ -7,7 +7,48 @@
 		<div class="form-group">
 			<label for="name" class="col-sm-3 control-label">Recipe Name:</label>
 			<div class="col-sm-9">
-				<input id="name" type="text" class="form-control" placeholder="Recipe Name" ng-model="name">
+				<input id="name" type="text" class="form-control" placeholder="Recipe Name" ng-model="editing.name">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="editing.type" class="col-sm-3 control-label">Category:</label>
+			<div class="col-sm-9">
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="editing.type" ng-model="editing.type" id="appetizer" value="appetizer" />
+						Appetizer
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="editing.type" ng-model="editing.type" id="soup" value="soup" />
+						Soup
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="editing.type" ng-model="editing.type" id="salad" value="salad" />
+						Salad
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="editing.type" ng-model="editing.type" id="entree" value="entree" />
+						Entree
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="editing.type" ng-model="editing.type" id="dessert" value="dessert" />
+						Dessert
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="editing.type" ng-model="editing.type" id="drink" value="drink" />
+						Drink
+					</label>
+				</div>
 			</div>
 		</div>
 		<div class="form-group">
@@ -25,8 +66,8 @@
 				</div>
 				<p></p>
 				<div>
-					<div ui-sortable ng-model="ingredients">
-						<p class="input-group movable" ng-repeat="ingr in ingredients">
+					<div ui-sortable ng-model="editing.ingredients">
+						<p class="input-group movable" ng-repeat="ingr in editing.ingredients">
 							<span class="input-group-btn">
 								<span class="btn btn-primary movable">
 									<span class="glyphicon glyphicon-move"></span>
@@ -56,8 +97,8 @@
 				</div>
 				<p></p>
 				<div>
-					<div ui-sortable ng-model="directions">
-						<p class="input-group movable" ng-repeat="dir in directions">
+					<div ui-sortable ng-model="editing.directions">
+						<p class="input-group movable" ng-repeat="dir in editing.directions">
 							<span class="input-group-btn">
 								<span class="btn btn-primary movable">
 									<span class="glyphicon glyphicon-move"></span>

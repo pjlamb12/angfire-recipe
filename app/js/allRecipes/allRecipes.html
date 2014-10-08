@@ -5,7 +5,7 @@
 <alert ng-repeat="alert in alerts" type="alert.type" close="deleteAlert($index)">{{alert.msg}}</alert>
 
 <div class="row">
-	<div recipe-list ng-model="recipes" alert-list="alerts"></div>
+	<div recipe-list recipes="recipes" alert-list="alerts"></div>
 </div>
 
 <p ng-show="allEmpty">

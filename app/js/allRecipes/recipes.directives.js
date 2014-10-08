@@ -4,7 +4,7 @@ angular.module('myApp.allRecipes.directives', ['myApp'])
 		restrict: 'A',
 		require: '^ngModel',
 		scope: {
-			ngModel: '=',
+			recipes: '=',
 			alertList: '='
 		},
 		templateUrl: 'js/allRecipes/recipeList.html',
@@ -24,7 +24,7 @@ angular.module('myApp.allRecipes.directives', ['myApp'])
 					var alert = {type: "danger", msg: "You successfully deleted your " + name + " recipe."};
 					$scope.alertList = alertService.addAlert(alert);
 					$scope.alertList = alertService.timeDelete($scope.alertList);
-					$scope.ngModel.$remove(item);
+					$scope.recipes.$remove(item);
 				});
 			}
 		}

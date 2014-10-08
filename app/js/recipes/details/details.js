@@ -5,16 +5,16 @@ angular.module('myApp.recipes.details',
 .config(function($stateProvider){
 	$stateProvider
 		.state('recipes.details',{
-			url: '/details/:recipeId',
+			url: '/details/:recipe',
 			templateUrl: 'js/recipes/details/details.html',
 			controller: 'DetailsController',
 			resolve: {
-				recipe: function(recipeService, $stateParams){
-					return recipeService.getRecipe(user.uid, $stateParams.recipeId)
+				recipe: function(user, recipeService, $stateParams){
+					return recipeService.getRecipe(user.uid, $stateParams.recipe)
 				}
 			}
 		});
 })
-.controller('DetailsController', function($scope){
-
+.controller('DetailsController', function($scope, recipe){
+	$scope.recipe = recipe;
 });
