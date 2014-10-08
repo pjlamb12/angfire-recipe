@@ -14,7 +14,8 @@ var myApp = angular.module('myApp', [
 	'myApp.services',
 	'ui.sortable',
 	'ui.bootstrap',
-	'myApp.controllers'
+	'myApp.controllers',
+	'angular-loading-bar'
 	// 'routeSecurity',
 	// 'myApp.filters',
 	// 'myApp.directives',
