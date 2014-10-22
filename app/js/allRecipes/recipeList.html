@@ -1,4 +1,4 @@
-<div class="row form-inline">
+<div class="form-inline">
 	<div class="form-group">
 		<label for="list-filter-name">Filter by Name: </label>
 		<input type="text" class="form-control" id="list-filter-name" ng-model="query.name" placeholder="Filter by">
@@ -15,24 +15,25 @@
 		</select>
 	</div>
 </div>
+<div class="row"></div>
 <div ng-show="recipes.length" class="table-responsive">
 	<table class="table table-hover table-bordered table-condensed">
 		<thead>
-			<td>Recipe Name</td>
-			<td>Recipe Category</td>
-			<td>Edit</td>
-			<td>Delete</td>
+			<th class="col-md-8">Recipe Name</th>
+			<th class="text-center col-md-2">Recipe Category</th>
+			<th class="text-center col-md-1">Edit</th>
+			<th class="text-center col-md-1">Delete</th>
 		</thead>
 		<tbody>
 			<tr ng-repeat="rec in recipes | filter:query | filter:type">
 				<td><a ui-sref="recipes.details({recipe: rec.$id})">{{rec.name}}</a></td>
-				<td>{{rec.type}}</td>
-				<td>
+				<td class="text-center">{{rec.type}}</td>
+				<td class="text-center">
 					<a class="btn btn-xs btn-primary" ui-sref="recipes.edit({recipe: rec.$id})">
 						<span class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</td>
-				<td>
+				<td class="text-center">
 					<button type="button" class="btn btn-xs btn-danger" ng-click="deleteRecipe(rec, rec.name)">
 						<span class="glyphicon glyphicon-trash"></span>
 					</button>
