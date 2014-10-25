@@ -1,23 +1,18 @@
-.row{
-  margin-bottom: 20px;
+.row {
+	margin-bottom: 20px;
 }
-
-.movable{
+.movable {
 	cursor: move;
 }
-
-.movable-input{
+.movable-input {
 	padding: 10px 0;
 }
-
-.panel-heading{
+.panel-heading {
 	cursor: pointer;
 }
-
-.nav-logout{
+.nav-logout {
 	cursor: pointer;
 }
-
-.alerts-section{
+.alerts-section {
 	display: block;
 }
